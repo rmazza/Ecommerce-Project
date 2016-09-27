@@ -19,7 +19,10 @@ namespace Store.Controllers
         [HttpPost]
         public ActionResult Index(CheckoutModel model)
         {
-            return View() ;
+            return Json(new
+            {
+                
+            });
         }
     }
 }

@@ -60,3 +60,11 @@ textarea {
 .thumbGallery {
     margin: 10px 0 10px 0;
 }
+
+.checkOutRow {
+    margin-bottom: 10px;
+}
+
+label.control-label.col-sm-2 {
+    text-align: right;
+}
