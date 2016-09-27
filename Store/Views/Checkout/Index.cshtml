@@ -1,0 +1,34 @@
+﻿@model Store.Models.CheckoutModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="col-xs-6">
+    @using (Html.BeginForm())
+    {
+            <fieldset>
+
+                <legend>@Html.LabelFor(m => m.firstName)</legend>
+                @Html.TextBoxFor(m => m.firstName, new { @class = "form-control" })
+
+                <legend>@Html.LabelFor(m => m.lastName)</legend>
+                @Html.TextBoxFor(m => m.lastName, new { @class = "form-control" })
+
+                <legend>@Html.LabelFor(m => m.streetName)</legend>
+                @Html.TextBoxFor(m => m.streetName, new { @class = "form-control" })
+
+                <legend>@Html.LabelFor(m => m.city)</legend>
+                @Html.TextBoxFor(m => m.city, new { @class = "form-control" })
+
+                <legend>@Html.LabelFor(m => m.zipcode)</legend>
+                @Html.TextBoxFor(m => m.zipcode, new { @class = "form-control" })
+               
+
+        </fieldset>
+
+        <input type="submit" title="Add to Cart" class="btn btn-primary" />
+    }
+</div>

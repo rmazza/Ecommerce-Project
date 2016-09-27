@@ -1,0 +1,76 @@
+﻿@model Store.Models.ProductModel
+
+@{
+    ViewBag.Title = Model.productName;
+    ViewBag.Price = Model.productPrice;
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="col-xs-8 left">
+    <div class="row">
+        <div class="col-xs-12 mainImg">
+            <img class="prodImg" src="https://dummyimage.com/600x400" alt="Image Description" />
+        </div>
+    </div>
+    <div class="row thumbGallery">
+
+        <div class="col-xs-3 thumbImg">
+            <img src="http://auburnyfc.com/images/50x50.gif" />
+        </div>
+        <div class="col-xs-3 thumbImg">
+            <img src="http://auburnyfc.com/images/50x50.gif" />
+        </div>
+        <div class="col-xs-3 thumbImg">
+            <img src="http://auburnyfc.com/images/50x50.gif" />
+        </div>
+        <div class="col-xs-3 thumbImg">
+            <img src="http://auburnyfc.com/images/50x50.gif" />
+        </div>
+
+    </div>
+</div>
+
+<div class="col-xs-4 right">
+    <div class="col-xs-12">
+        <div class="col-xs-2"></div>
+        <div class="col-xs-8 cart">
+
+            @*<h1>@(ViewBag.productPrice.HasValue ? ViewBag.productPrice.Value.ToString("c") : "not for sale")</h1>*@
+            <div class="row">
+                <div class="col-xs-6 addRemove">
+
+                    <div class="col-xs-8 quantInCart">
+                        <div class="cartQuant">
+                            <span>0</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-4 plusMinusBox">
+                        <div class="plusMinus"> + </div>
+                        <div class="plusMinus"> - </div>
+                    </div>
+
+                </div>
+                <div class="col-xs-6">
+                    @using (Html.BeginForm())
+                    {
+                            @Html.HiddenFor(m => m.productName)
+                            @Html.HiddenFor(m => m.productPrice)
+                            @Html.HiddenFor(m => m.ID)
+
+                        <fieldset>
+                            <legend>@Html.LabelFor(m => m.quantity)</legend>
+                            @Html.TextBoxFor(m => m.quantity, new { @class = "form-control" })
+                        </fieldset>
+
+                        <input type="submit" title="Add to Cart" class="btn btn-primary" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-2"></div>
+</div>
+
+</div>
+
