@@ -5,8 +5,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace Store.Controllers
 {
+    [Log]
     public class CheckoutController : Controller
     {
 
@@ -19,10 +21,14 @@ namespace Store.Controllers
         [HttpPost]
         public ActionResult Index(CheckoutModel model)
         {
-            return Json(new
+            if (ModelState.IsValid)
             {
-                
-            });
+                //TODO: Save Checkout info to database
+                return RedirectToAction("Index", "Receipt");
+            }else
+            {
+                return View(model);
+            }
         }
     }
 }

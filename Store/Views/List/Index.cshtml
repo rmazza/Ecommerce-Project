@@ -1,0 +1,29 @@
+﻿@*@model IEnumerable<Store.Models.ProductModel>*@
+
+@{
+    ViewBag.Title = "Products";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="col-xs-12" ng-controller="myCont">
+
+    @*@foreach (var I in Model)
+        {
+            <div class="row productList">
+                <div class="col-xs-2">@I.ID</div>
+                <div class="col-xs-6">@I.productName</div>
+                <div class="col-xs-2">@I.productPrice.Value.ToString("c")</div>
+                <div class="col-xs-2">@Html.ActionLink("Buy","Index","Buy")</div>
+            </div>
+        }*@
+
+    <div class="row" ng-repeat="product in products">
+        <div class="col-xs-2">{{product.ID}}</div>
+        <div class="col-xs-6">{{ product.productName}}</div>
+        <div class="col-xs-2">{{product.productPrice | currency}}</div>
+        <div class="col-xs-2">@Html.ActionLink("Buy", "Index", "Buy")</div>
+    </div>
+        
+</div>
+

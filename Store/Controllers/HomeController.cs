@@ -33,6 +33,7 @@ namespace Store.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+            ViewBag.Sample = "Sample text";
 
             return View();
         }

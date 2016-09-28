@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Store.Controllers
 {
+    [Log]
     public class ProductController : Controller
     {
         // GET: Product
