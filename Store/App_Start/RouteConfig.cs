@@ -14,22 +14,11 @@ namespace Store
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Robert",
-                url: "Robert",
-                defaults: new { controller = "Home", action = "Index" }
-            );
-
-            routes.MapRoute(
-                name: "test",
-                url: "Test",
-                defaults: new { controller = "Home", action = "Test" }
-                );
-
-            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
         }
     }
 }

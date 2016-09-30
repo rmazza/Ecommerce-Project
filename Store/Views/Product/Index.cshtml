@@ -58,10 +58,10 @@
                             @Html.HiddenFor(m => m.productPrice)
                             @Html.HiddenFor(m => m.ID)
 
-                        <fieldset>
-                            <legend>@Html.LabelFor(m => m.quantity)</legend>
-                            @Html.TextBoxFor(m => m.quantity, new { @class = "form-control" })
-                        </fieldset>
+                        @*<fieldset>
+                            <legend>@Html.LabelFor(m => m.inStock)</legend>
+                            @Html.TextBoxFor(m => m.inStock, new { @class = "form-control" })
+                        </fieldset>*@
 
                         <input type="submit" title="Add to Cart" class="btn btn-primary" />
                     }
