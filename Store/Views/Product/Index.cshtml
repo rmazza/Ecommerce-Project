@@ -1,13 +1,14 @@
-﻿@model Store.Models.ProductModel
+﻿@*@model Store.Models.ProductModel
 
 @{
     ViewBag.Title = Model.productName;
     ViewBag.Price = Model.productPrice;
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>@ViewBag.Title</h2>*@
 
-<div class="col-xs-8 left">
+<div class="col-xs-8 left" ng-controller="testCont">
+    {{prod}}
     <div class="row">
         <div class="col-xs-12 mainImg">
             <img class="prodImg" src="https://dummyimage.com/600x400" alt="Image Description" />
@@ -52,7 +53,7 @@
 
                 </div>
                 <div class="col-xs-6">
-                    @using (Html.BeginForm())
+                    @*@using (Html.BeginForm())
                     {
                             @Html.HiddenFor(m => m.productName)
                             @Html.HiddenFor(m => m.productPrice)
@@ -64,7 +65,7 @@
                         </fieldset>*@
 
                         <input type="submit" title="Add to Cart" class="btn btn-primary" />
-                    }
+                   
                 </div>
             </div>
         </div>

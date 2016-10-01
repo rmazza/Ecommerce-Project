@@ -14,34 +14,36 @@ namespace Store.Models
         [StringLength(20, MinimumLength = 2)]
         public string firstName { get; set; }
 
+        [DisplayName("Middle Initial:")]
+        public char middleInitial { get; set; }
+
         [DisplayName("Last Name:")]
-        [Required]
+        [Required(ErrorMessage = "Last Name is required")]
         [StringLength(20, MinimumLength = 2)]
         public string lastName { get; set; }
 
         [DisplayName("Email:")]
-        [Required]
         [EmailAddress]
         [StringLength(30)]
         public string email { get; set; }
 
         [DisplayName("Street:")]
-        [Required]
+        [Required(ErrorMessage = "Street Address is required")]
         [StringLength(40)]
         public string streetName { get; set; }
 
         [DisplayName("City:")]
-        [Required]
+        [Required(ErrorMessage = "City is required")]
         [StringLength(20, MinimumLength = 2)]
         public string city { get; set; }
 
         [DisplayName("State:")]
-        [Required]
+        [Required(ErrorMessage = "State is required")]
         [StringLength(2, MinimumLength = 2)]
         public string state { get; set; }
 
         [DisplayName("Zipcode:")]
-        [Required]
+        [Required(ErrorMessage = "Zipcode is required")]
         [StringLength(5, MinimumLength = 5)]
         public string zipcode { get; set; }
 

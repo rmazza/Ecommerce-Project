@@ -27,11 +27,11 @@ namespace Store
                     inStock = 1,
                     images = new ImageModel[]
                         {
-                            new ImageModel { img = "/Images/BaseballGloves/Rawlings_RGGNP5/1" },
-                            new ImageModel { img = "/Images/BaseballGloves/Rawlings_RGGNP5/2" },
-                            new ImageModel { img = "/Images/BaseballGloves/Rawlings_RGGNP5/3" },
-                            new ImageModel { img = "/Images/BaseballGloves/Rawlings_RGGNP5/4" },
-                            new ImageModel { img = "/Images/BaseballGloves/Rawlings_RGGNP5/5" }
+                            new ImageModel { img = "/Images/BaseballGloves/Rawlings_RGGNP5/1.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Rawlings_RGGNP5/2.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Rawlings_RGGNP5/3.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Rawlings_RGGNP5/4.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Rawlings_RGGNP5/5.jpg" }
                         }
                 },
                 new ProductModel {
@@ -47,11 +47,11 @@ namespace Store
                     inStock = 1,
                     images = new ImageModel[]
                         {
-                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P4/1" },
-                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P4/2" },
-                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P4/3" },
-                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P4/4" },
-                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P4/5" }
+                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P4/1.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P4/2.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P4/3.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P4/4.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P4/5.jpg" }
                         }
                 },
                 new ProductModel {
@@ -67,11 +67,11 @@ namespace Store
                     inStock = 1,
                     images = new ImageModel[]
                         {
-                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P2/1" },
-                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P2/2" },
-                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P2/3" },
-                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P2/4" },
-                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P2/5" }
+                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P2/1.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P2/2.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P2/3.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P2/4.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P2/5.jpg" }
                         }
                 },
                 new ProductModel {
@@ -87,11 +87,11 @@ namespace Store
                     inStock = 1,
                     images = new ImageModel[]
                         {
-                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P5/1" },
-                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P5/2" },
-                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P5/3" },
-                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P5/4" },
-                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P5/5" }
+                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P5/1.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P5/2.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P5/3.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P5/4.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Nokona_P5/5.jpg" }
                         }
                 },
                new ProductModel {
@@ -107,11 +107,11 @@ namespace Store
                     inStock = 1,
                     images = new ImageModel[]
                         {
-                            new ImageModel { img = "/Images/BaseballGloves/Under_Armour_UACM-PRO1/1" },
-                            new ImageModel { img = "/Images/BaseballGloves/Under_Armour_UACM-PRO1/2" },
-                            new ImageModel { img = "/Images/BaseballGloves/Under_Armour_UACM-PRO1/3" },
-                            new ImageModel { img = "/Images/BaseballGloves/Under_Armour_UACM-PRO1/4" },
-                            new ImageModel { img = "/Images/BaseballGloves/Under_Armour_UACM-PRO1/5" }
+                            new ImageModel { img = "/Images/BaseballGloves/Under_Armour_UACM-PRO1/1.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Under_Armour_UACM-PRO1/2.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Under_Armour_UACM-PRO1/3.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Under_Armour_UACM-PRO1/4.jpg" },
+                            new ImageModel { img = "/Images/BaseballGloves/Under_Armour_UACM-PRO1/5.jpg" }
                         }
                 }
 

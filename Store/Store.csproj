@@ -195,11 +195,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\BaseballGloves\Nokona_P5\1.jpg" />
+    <Content Include="Images\BaseballGloves\Nokona_P5\5.jpg" />
     <Content Include="Images\BaseballGloves\Nokona_P5\2.jpg" />
     <Content Include="Images\BaseballGloves\Nokona_P5\3.jpg" />
     <Content Include="Images\BaseballGloves\Nokona_P5\4.jpg" />
-    <Content Include="Images\BaseballGloves\Nokona_P5\5.jpg" />
+    <Content Include="Images\BaseballGloves\Nokona_P5\1.jpg" />
     <Content Include="Images\BaseballGloves\Rawlings_RGGNP5\1.jpg" />
     <Content Include="Images\BaseballGloves\Rawlings_RGGNP5\2.jpg" />
     <Content Include="Images\BaseballGloves\Rawlings_RGGNP5\3.jpg" />

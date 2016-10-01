@@ -8,16 +8,11 @@ namespace Store.Controllers
     public class ProductController : Controller
     {
         // GET: Product
-        public ActionResult Index(int? id)
+        public ActionResult Index()
         {
-            if (id >= 1)
-            {
+
                 return View();
-            }
-            else
-            {
-                return new HttpNotFoundResult("Product Not Found");
-            }
+
         }
 
         [HttpPost]
