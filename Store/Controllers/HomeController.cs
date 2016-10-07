@@ -14,15 +14,6 @@ namespace Store.Controllers
             return View();
         }
 
-        public ActionResult Test()
-        {
-            return Json(new
-            {
-                firstName = "Robert",
-                last = "Mazza"
-            }, JsonRequestBehavior.AllowGet);
-        }
-
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
