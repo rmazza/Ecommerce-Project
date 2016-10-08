@@ -7,24 +7,11 @@
 <h2>@ViewBag.Title</h2>
 
 <div class="col-xs-12" ng-controller="myCont">
-
-    @*@foreach (var I in Model)
-        {
-            <div class="row productList">
-                <div class="col-xs-2">@I.ID</div>
-                <div class="col-xs-6">@I.productName</div>
-                <div class="col-xs-2">@I.productPrice.Value.ToString("c")</div>
-                <div class="col-xs-2">@Html.ActionLink("Buy","Index","Buy")</div>
-            </div>
-        }*@
         <div class="col-md-4 prodListBox" ng-repeat="product in products">
-
             <img class="prodListImg" ng-src="{{product.images[0].img}}" />
             <h3>{{product.productName}}</h3>
             <div class="col-xs-6 text-left prodListPrice">{{product.productPrice | currency}}</div>
             <div class="col-xs-offset-2 col-xs-4 btn btn-primary text-right">@Html.ActionLink("Add to Cart", "Index", "Buy")</div>
-    
-    </div>
-        
+        </div>     
 </div>
 
