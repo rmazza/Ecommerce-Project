@@ -48,6 +48,14 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="JetBrains.Annotations, Version=10.1.5.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
       <HintPath>..\packages\JetBrains.Annotations.10.1.5\lib\net\JetBrains.Annotations.dll</HintPath>
       <Private>True</Private>
@@ -100,6 +108,8 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -181,8 +191,35 @@
     </Compile>
     <Compile Include="LogAttribute.cs" />
     <Compile Include="Models\CheckoutModel.cs" />
+    <Compile Include="Models\Image.cs">
+      <DependentUpon>SportingGoodsModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ImageModel.cs" />
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>SportingGoodsModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\SportingGoodsModels.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SportingGoodsModels.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SportingGoodsModels.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SportingGoodsModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SportingGoodsModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SportingGoodsModels.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_GetAllProducts_Result.cs">
+      <DependentUpon>SportingGoodsModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_GetProductImages_Result.cs">
+      <DependentUpon>SportingGoodsModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
   </ItemGroup>
@@ -210,6 +247,16 @@
     <Content Include="Images\BaseballGloves\Under_Armour_UACM-PRO1\3.jpg" />
     <Content Include="Images\BaseballGloves\Under_Armour_UACM-PRO1\4.jpg" />
     <Content Include="Images\BaseballGloves\Under_Armour_UACM-PRO1\5.jpg" />
+    <Content Include="Models\SportingGoodsModels.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SportingGoodsModels.edmx</DependentUpon>
+      <LastGenOutput>SportingGoodsModels.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\SportingGoodsModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SportingGoodsModels.edmx</DependentUpon>
+      <LastGenOutput>SportingGoodsModels.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -224,6 +271,13 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
+    <EntityDeploy Include="Models\SportingGoodsModels.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SportingGoodsModels.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\SportingGoodsModels.edmx.diagram">
+      <DependentUpon>SportingGoodsModels.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -274,6 +328,9 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,9 +1,8 @@
 ﻿using Store.Models;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using System.Web.Http;
+using System.Linq;
 
 namespace Store
 {
@@ -13,66 +12,26 @@ namespace Store
         // GET api/<controller>
         public IEnumerable<ProductModel> Get()
         {
-            List<ProductModel> model = new List<ProductModel>();
-
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["StoreServer"].ConnectionString))
+            using (CodingTempleECommerceEntities entities = new CodingTempleECommerceEntities())
             {
-
-                SqlCommand cmd = connection.CreateCommand();
-
-                cmd.CommandText = "sp_GetAllProducts";
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                connection.Open();
-
-                using(SqlDataReader reader = cmd.ExecuteReader())
+                return entities.Products.Select(x => new ProductModel
                 {
-                    while (reader.Read())
+                    ID = x.Id,
+                    inStock = x.InStock ?? false,
+                    modelNumber = x.ModelNumber,
+                    position = x.Position,
+                    productBrand = x.ProductBrand,
+                    productDescription = x.ProductDescription,
+                    productName = x.ProductName,
+                    productPrice = x.ProductPrice,
+                    size = x.Size,
+                    sport = x.Sport,
+                    images = x.Images.Select(y => new ImageModel
                     {
-                        ProductModel pm = new ProductModel();
-
-                        pm.ID = reader.GetInt32(reader.GetOrdinal("Id"));
-                        pm.productName = reader.GetString(reader.GetOrdinal("ProductName"));
-                        pm.productPrice = reader.GetDecimal(reader.GetOrdinal("ProductPrice"));
-                        pm.productDescription = reader.GetString(reader.GetOrdinal("ProductDescription"));
-                        pm.modelNumber = reader.GetString(reader.GetOrdinal("ModelNumber"));
-                        pm.size = reader.GetInt32(reader.GetOrdinal("Size"));
-                        pm.position = reader.GetString(reader.GetOrdinal("Position"));
-                        pm.inStock = reader.GetBoolean(reader.GetOrdinal("InStock"));
-                        pm.sport = reader.GetString(reader.GetOrdinal("Sport"));
-                        pm.productBrand = reader.GetString(reader.GetOrdinal("ProductBrand"));
-
-                        model.Add(pm);
-                    }
-                }
-
-                cmd.CommandText = "sp_GetProductImages";
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                foreach(ProductModel m in model)
-                {
-                    List<ImageModel> imgModel = new List<ImageModel>();
-
-                    cmd.Parameters.AddWithValue("@prodName", m.productName);
-
-                    using(SqlDataReader imgReader = cmd.ExecuteReader())
-                    {
-                        while (imgReader.Read())
-                        {
-                            imgModel.Add(new ImageModel
-                            {
-                                img = imgReader.GetString(imgReader.GetOrdinal("ImgLink"))
-                            });
-                        }
-                    }
-                    cmd.Parameters.Clear();
-                    m.images = imgModel.ToArray();
-                }
-                //cmd.Parameters.AddWithValue("@prodName",)
-
+                        img = y.ImgLink
+                    })
+                }).ToList();
             }
-
-            return model;
         }
 
         // GET api/<controller>/5

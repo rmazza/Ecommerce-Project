@@ -17,6 +17,6 @@ namespace Store.Models
         public bool inStock { get; set; }
         public int? size { get; set; }
         public string position { get; set; }
-        public ImageModel[] images { get; set; }
+        public IEnumerable<ImageModel> images { get; set; }
     }
 }
