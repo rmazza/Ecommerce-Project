@@ -1,0 +1,20 @@
+﻿@model Store.Models.ProductModel
+
+<h2>@Model.productName</h2>
+
+@Model.ID
+@Model.position
+@Model.productBrand
+@Model.productDescription
+@Model.productPrice
+@Model.size
+@Model.sport
+@Model.modelNumber
+@Model.inStock
+
+@foreach(var i in Model.images)
+{
+    <div>@i.img</div>
+}
+
+

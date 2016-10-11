@@ -18,5 +18,6 @@ namespace Store.Models
         public int? size { get; set; }
         public string position { get; set; }
         public IEnumerable<ImageModel> images { get; set; }
+        //public ImageModel[] images { get; set; }
     }
 }

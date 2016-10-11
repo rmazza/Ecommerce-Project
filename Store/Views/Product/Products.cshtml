@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Store.Models.ProductModel>
+
+@{
+    ViewBag.Title = "Products";
+}
+
+<h2>@ViewBag.Title</h2>
+    <div class="col-xs-12">
+        @foreach (var m in @Model)
+        {
+            <div class="col-md-4 prodListBox">
+                <img class="prodListImg" src="@Url.Content(m.images.First().img)" />
+                <h3>@Html.DisplayFor(modelItem => m.productName)</h3>
+                <div class="col-xs-6 text-left prodListPrice">
+                    @Html.DisplayFor(modelItem => m.productPrice)
+                </div>
+                <div class="col-xs-offset-2 col-xs-4 btn btn-primary text-right">
+                    @Html.ActionLink("Add to Cart", "SingleProduct", "Product", new { id = m.ID },null)
+                </div>
+            </div>
+        }
+    </div>

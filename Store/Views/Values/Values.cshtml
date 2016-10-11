@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Store.Models.ProductModel>
+
+
+@{
+    ViewBag.Title = "Values";
+}
+
+<h2>Values</h2>
+
+@foreach (var m in Model)
+{
+    @Html.DisplayFor(modelItem => m.productName)
+}
