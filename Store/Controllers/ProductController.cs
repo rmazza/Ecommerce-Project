@@ -43,6 +43,8 @@ namespace Store.Controllers
 
         public ActionResult SingleProduct(int? id)
         {
+            if (id == null) { id = 1; }
+
             using (CodingTempleECommerceEntities entities = new CodingTempleECommerceEntities())
             {
                 var prod = entities.Products.Single(x => x.Id == id);
@@ -71,11 +73,24 @@ namespace Store.Controllers
         {
 
             //To Do: Add product to cart in database
+            using (CodingTempleECommerceEntities entities = new CodingTempleECommerceEntities())
+            {
+                var newEntity = new Product {
+
+                    Id = (int)model.ID,
+                    ProductName = model.productName,
+                    ProductPrice = model.productPrice,
+                    InStock = model.inStock,
+                };//Set up the entity
 
 
-            //return RedirectToAction("Index", "Home");
-            // redirect to index of the homeContoller
-            return RedirectToAction("Index", "Checkout");
+                entities.Products.Add(newEntity);
+                entities.SaveChanges(); //Persist it to the database
+            }
+
+                //return RedirectToAction("Index", "Home");
+                // redirect to index of the homeContoller
+                return RedirectToAction("Index", "Checkout");
             
         }
 
