@@ -23,15 +23,15 @@ namespace Store.Controllers
             {
                 using (CodingTempleECommerceEntities entities = new CodingTempleECommerceEntities())
                 {
-                    string username = model.Username;
-                    string password = model.Password;
+                    var usr = entities.Users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
-                    bool userValid = entities.Users.Any(x => x.Username == username && x.Password == password);
-
-                    if (userValid)
+                    if(usr != null)
                     {
-                        FormsAuthentication.SetAuthCookie(username, false);
+                        Session["UserID"] = usr.Id.ToString();
+                        Session["Username"] = usr.Username.ToString();
+                        return RedirectToAction();
                     }
+                    
                 }
 
             }
@@ -45,18 +45,18 @@ namespace Store.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register()
-        {
-            if (ModelState.IsValid)
-            {
-                using (CodingTempleECommerceEntities entities = new CodingTempleECommerceEntities())
-                {
-                    int newID = entities.Users.Max(x => x.Id) + 1;
-                }
-            }
-            return View();
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Register()
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        using (CodingTempleECommerceEntities entities = new CodingTempleECommerceEntities())
+        //        {
+        //            int newID = entities.Users.Max(x => x.Id) + 1;
+        //        }
+        //    }
+        //    return View();
+        //}
     }
 }
