@@ -185,12 +185,25 @@
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListController.cs" />
+    <Compile Include="Controllers\ProductAdminController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LogAttribute.cs" />
+    <Compile Include="Models\CheckoutCart.cs">
+      <DependentUpon>SportingGoodsModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CheckoutModel.cs" />
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>SportingGoodsModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerAddress.cs">
+      <DependentUpon>SportingGoodsModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\database_firewall_rules.cs">
+      <DependentUpon>SportingGoodsModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Image.cs">
       <DependentUpon>SportingGoodsModels.tt</DependentUpon>
     </Compile>
@@ -311,15 +324,17 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Checkout\Index.cshtml" />
     <Content Include="Views\Shared\_Login.cshtml" />
     <Content Include="Views\web.config" />
     <Content Include="Views\List.cshtml" />
-    <Content Include="Views\List\Index.cshtml" />
-    <Content Include="Views\Values\Values.cshtml" />
     <Content Include="Views\Product\Products.cshtml" />
     <Content Include="Views\Product\SingleProduct.cshtml" />
+    <Content Include="Views\ProductAdmin\Create.cshtml" />
+    <Content Include="Views\ProductAdmin\Delete.cshtml" />
+    <Content Include="Views\ProductAdmin\Details.cshtml" />
+    <Content Include="Views\ProductAdmin\Edit.cshtml" />
+    <Content Include="Views\ProductAdmin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
