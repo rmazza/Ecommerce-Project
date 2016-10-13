@@ -1,0 +1,90 @@
+﻿@model Store.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModelNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModelNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Size)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Size)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Position)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Position)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InStock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InStock)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sport)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sport)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductBrand)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductBrand)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
