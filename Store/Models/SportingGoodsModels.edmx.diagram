@@ -4,10 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5bd9072860024f7cb3f22ac46e2a3469" Name="Diagram1">
-        <EntityTypeShape EntityType="eCommerceModel.Image" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="eCommerceModel.Product" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="eCommerceModel.fk_ImageProduct" ManuallyRouted="false" />
+      <Diagram DiagramId="e23408774760444b985de8071bbbeda5" Name="Diagram1">
+        <EntityTypeShape EntityType="CodingTempleECommerceModel.CheckoutCart" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CodingTempleECommerceModel.CustomerAddress" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CodingTempleECommerceModel.Customer" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CodingTempleECommerceModel.Image" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CodingTempleECommerceModel.Product" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CodingTempleECommerceModel.database_firewall_rules" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="CodingTempleECommerceModel.fk_CartProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="CodingTempleECommerceModel.fk_CustomerAddress" ManuallyRouted="false" />
+        <AssociationConnector Association="CodingTempleECommerceModel.fk_ImageProduct" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -15,7 +15,7 @@ namespace Store.Models
         public string firstName { get; set; }
 
         [DisplayName("Middle Initial:")]
-        public char middleInitial { get; set; }
+        public string middleInitial { get; set; }
 
         [DisplayName("Last Name:")]
         [Required(ErrorMessage = "Last Name is required")]
@@ -45,7 +45,7 @@ namespace Store.Models
         [DisplayName("Zipcode:")]
         [Required(ErrorMessage = "Zipcode is required")]
         [StringLength(5, MinimumLength = 5)]
-        public string zipcode { get; set; }
+        public Nullable<int> zipcode { get; set; }
 
     }
 }
