@@ -6,31 +6,63 @@
 
 <h2>Login/Register</h2>
 
-@using (Html.BeginForm(new { @class = "form-horizontal" }))
-{
-    @Html.ValidationSummary(false, "", new { @class = "bg-danger" })
-    @Html.AntiForgeryToken()
+<div class="col-xs-6 loginForm">
+    @using (Html.BeginForm("Index","Login",FormMethod.Post))
+    {
+        @Html.ValidationSummary(false, "", new { @class = "bg-danger" })
+        @Html.AntiForgeryToken()
 
-    <fieldset>
-        <legend>Login</legend>
-        <div class="row">
-            <div class="form-group">
-                @Html.LabelFor(modelItem => modelItem.Username, new { @class = "control-label col-sm-2" })
-                @Html.TextBoxFor(m => m.Username, new { @class = "form-control col-sm-10" })
+        <fieldset>
+            <legend>Login</legend>
+            <div class="row">
+                <div class="form-group">
+                    @Html.LabelFor(modelItem => modelItem.Username, new { @class = "control-label col-xs-6" })
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control col-sm-6" })
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="form-group">
-                @Html.LabelFor(modelItem => modelItem.Password, new { @class = "control-label col-sm-2" })
-                @Html.TextBoxFor(m => m.Password, new { @class = "form-control col-sm-10" })
+            <div class="row">
+                <div class="form-group">
+                    @Html.LabelFor(modelItem => modelItem.Password, new { @class = "control-label col-xs-6" })
+                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control col-xs-6" })
+                </div>
             </div>
-       </div>
-        <div class="row">
-            <div class="col-sm-offset-2">
-                <input type="submit" value="Submit" />
+            <div class="row">
+                <div class="col-sm-offset-2">
+                    <input type="submit" value="Submit" />
+                </div>
             </div>
-        </div> 
-</fieldset>
+        </fieldset>
+    }
 
-}
+</div>
+
+<div class="col-xs-6 registerForm">
+    @using (Html.BeginForm("Register","Login", FormMethod.Post))
+    {
+        @Html.ValidationSummary(false, "", new { @class = "bg-danger" })
+        @Html.AntiForgeryToken()
+
+        <fieldset>
+            <legend>Login</legend>
+            <div class="row">
+                <div class="form-group">
+                    @Html.LabelFor(modelItem => modelItem.Username, new { @class = "control-label col-sm-2" })
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control col-sm-10" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    @Html.LabelFor(modelItem => modelItem.Password, new { @class = "control-label col-sm-2" })
+                    @Html.TextBoxFor(m => m.Password, new { @class = "form-control col-sm-10" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-offset-2">
+                    <input type="submit" value="Submit" />
+                </div>
+            </div>
+        </fieldset>
+    }
+
+</div>
 
