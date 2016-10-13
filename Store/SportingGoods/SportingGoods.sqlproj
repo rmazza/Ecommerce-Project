@@ -140,9 +140,11 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="dbo\Tables\Customers.sql" />
+    <Build Include="dbo\Tables\Customers.sql">
+      <AnsiNulls>Off</AnsiNulls>
+    </Build>
     <Build Include="dbo\Tables\CustomerAddress.sql" />
-    <Build Include="dbo\Tables\Cart.sql" />
+    <Build Include="dbo\Tables\CheckoutCart.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SportingGoods.refactorlog" />
