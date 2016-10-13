@@ -3,17 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
+
 namespace Store.Controllers
 {
     [Log]
     public class ProductController : Controller
     {
-        // GET: Product
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult Products()
         {
             List<ProductModel> model = new List<ProductModel>();
@@ -69,30 +64,29 @@ namespace Store.Controllers
 
 
         [HttpPost]
-        public ActionResult Index(ProductModel model)
+        public ActionResult SingleProduct(ProductModel model, int? quantity)
         {
 
             //To Do: Add product to cart in database
-            using (CodingTempleECommerceEntities entities = new CodingTempleECommerceEntities())
-            {
-                var newEntity = new Product {
+            return View(model);
 
-                    Id = (int)model.ID,
-                    ProductName = model.productName,
-                    ProductPrice = model.productPrice,
-                    InStock = model.inStock,
-                };//Set up the entity
+        }
+
+            //if (Request.Cookies["OrderHeader"] == null)
+            //{
+            //    //Execute normally by adding new cart
+            //}else
+            //{
+            //    //Fetch cookie
+            //    //header = entities.salesOrderHeader.Single(x => x.SalesOrderID == int.Parse(Request.Cookies["OrderHeader"].Value));
+            //}
 
 
-                entities.Products.Add(newEntity);
-                entities.SaveChanges(); //Persist it to the database
-            }
-
+            //Response.Cookies.Add(new System.Web.HttpCookie("Order Header", header.salesorderid.tostring(())))
                 //return RedirectToAction("Index", "Home");
                 // redirect to index of the homeContoller
-                return RedirectToAction("Index", "Checkout");
+                //return RedirectToAction("Index", "Checkout");
             
         }
 
     }
-}
