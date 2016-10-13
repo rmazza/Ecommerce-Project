@@ -18,25 +18,40 @@ namespace Store.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(User model, string returnURL) {
+        public ActionResult Index(User model, string returnURL)
+        {
             if (ModelState.IsValid)
             {
                 using (CodingTempleECommerceEntities entities = new CodingTempleECommerceEntities())
                 {
                     var usr = entities.Users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
-                    if(usr != null)
+                    if (usr != null)
                     {
                         Session["UserID"] = usr.Id.ToString();
                         Session["Username"] = usr.Username.ToString();
-                        return RedirectToAction();
+                        return RedirectToAction("LoggedIn");
                     }
-                    
+                    else
+                    {
+                        ModelState.AddModelError("", "Username or Password is incorrect.");
+                    }
+
                 }
-
+                return View();
             }
+        }
 
-            return View(model);
+        public ActionResult LoggedIn()
+        {
+            if (Session["UserID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
         [HttpGet]
