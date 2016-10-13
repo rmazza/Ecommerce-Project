@@ -17,7 +17,6 @@ namespace Store.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.CheckoutCarts = new HashSet<CheckoutCart>();
             this.Images = new HashSet<Image>();
         }
     
@@ -32,8 +31,6 @@ namespace Store.Models
         public string Sport { get; set; }
         public string ProductBrand { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CheckoutCart> CheckoutCarts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Image> Images { get; set; }
     }

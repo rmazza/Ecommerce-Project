@@ -103,6 +103,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity.Design" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -184,24 +186,18 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ListController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProductAdminController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LogAttribute.cs" />
-    <Compile Include="Models\CheckoutCart.cs">
-      <DependentUpon>SportingGoodsModels.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\CheckoutModel.cs" />
     <Compile Include="Models\Customer.cs">
       <DependentUpon>SportingGoodsModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CustomerAddress.cs">
-      <DependentUpon>SportingGoodsModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\database_firewall_rules.cs">
       <DependentUpon>SportingGoodsModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Image.cs">
@@ -233,8 +229,10 @@
     <Compile Include="Models\sp_GetProductImages_Result.cs">
       <DependentUpon>SportingGoodsModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>SportingGoodsModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -335,6 +333,7 @@
     <Content Include="Views\ProductAdmin\Details.cshtml" />
     <Content Include="Views\ProductAdmin\Edit.cshtml" />
     <Content Include="Views\ProductAdmin\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

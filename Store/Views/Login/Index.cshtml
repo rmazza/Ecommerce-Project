@@ -1,0 +1,36 @@
+﻿@model Store.Models.User
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login/Register</h2>
+
+@using (Html.BeginForm(new { @class = "form-horizontal" }))
+{
+    @Html.ValidationSummary(false, "", new { @class = "bg-danger" })
+    @Html.AntiForgeryToken()
+
+    <fieldset>
+        <legend>Login</legend>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(modelItem => modelItem.Username, new { @class = "control-label col-sm-2" })
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control col-sm-10" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(modelItem => modelItem.Password, new { @class = "control-label col-sm-2" })
+                @Html.TextBoxFor(m => m.Password, new { @class = "form-control col-sm-10" })
+            </div>
+       </div>
+        <div class="row">
+            <div class="col-sm-offset-2">
+                <input type="submit" value="Submit" />
+            </div>
+        </div> 
+</fieldset>
+
+}
+

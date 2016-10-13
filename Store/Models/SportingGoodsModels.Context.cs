@@ -27,12 +27,11 @@ namespace Store.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<CheckoutCart> CheckoutCarts { get; set; }
         public virtual DbSet<CustomerAddress> CustomerAddresses { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     
         public virtual ObjectResult<sp_GetAllProducts_Result> sp_GetAllProducts()
         {
