@@ -20,8 +20,29 @@ namespace Store.Controllers
             if (ModelState.IsValid)
             {
                 //TODO: Save Checkout info to database
-                return RedirectToAction("Index", "Receipt");
-            }else
+                using (CodingTempleECommerceEntities entitites = new CodingTempleECommerceEntities())
+                {
+                    entitites.Customers.Add(
+                        new Customer {
+                            FirstName = model.firstName,
+                            LastName = model.lastName,
+                            Email = model.email,
+                           
+                        });
+
+                    entitites.CustomerAddresses.Add(
+                        new CustomerAddress
+                        {
+                            City = model.city,
+                            StateProvince = model.state,
+                            StreetName = model.streetName,
+                            ZipCode = model.zipcode,
+                      
+                        });
+                }
+                    return RedirectToAction("Index", "Receipt");
+            }
+            else
             {
                 return View(model);
             }
