@@ -1,10 +1,11 @@
 ﻿@{
-    ViewBag.Title = "Index";
     string user = WebSecurity.CurrentUserName;
 }
 
-<h3>Welcome, @user</h3>
-
-
-
-
+@if(user != null)
+{
+    <h3>Welcome, @user</h3>
+    @Html.ActionLink("Logout", "Logout", "Account")
+}else {
+    <h3>Welcome, Guest</h3>
+}

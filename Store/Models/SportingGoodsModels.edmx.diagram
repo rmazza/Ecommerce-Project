@@ -12,6 +12,7 @@
         <AssociationConnector Association="CodingTempleECommerceModel.fk_CustomerAddress" ManuallyRouted="false" />
         <AssociationConnector Association="CodingTempleECommerceModel.fk_ImageProduct" ManuallyRouted="false" />
         <EntityTypeShape EntityType="CodingTempleECommerceModel.User" Width="1.5" PointX="5.375" PointY="4.75" />
+        <AssociationConnector Association="CodingTempleECommerceModel.fk_UserCustomer" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

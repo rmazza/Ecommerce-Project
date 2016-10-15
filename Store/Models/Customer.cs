@@ -25,8 +25,10 @@ namespace Store.Models
         public string LastName { get; set; }
         public string MiddleInitial { get; set; }
         public string Email { get; set; }
+        public int UserID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
+        public virtual User User { get; set; }
     }
 }

@@ -24,7 +24,8 @@
           <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
           <Property Name="LastName" Type="nvarchar" MaxLength="100" />
           <Property Name="MiddleInitial" Type="nvarchar" MaxLength="1" />
-          <Property Name="Email" Type="nvarchar" MaxLength="200" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -53,9 +54,8 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <Association Name="fk_CustomerAddress">
           <End Role="Customers" Type="Self.Customers" Multiplicity="1">
@@ -85,6 +85,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_UserCustomer">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="sp_GetAllProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GetProductImages" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="prodName" Type="nvarchar" Mode="In" />
@@ -102,6 +116,10 @@
           <AssociationSet Name="fk_ImageProduct" Association="Self.fk_ImageProduct">
             <End Role="Products" EntitySet="Products" />
             <End Role="Image" EntitySet="Image" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserCustomer" Association="Self.fk_UserCustomer">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Customers" EntitySet="Customers" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -128,8 +146,10 @@
           <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MiddleInitial" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="CustomerAddresses" Relationship="Self.fk_CustomerAddress" FromRole="Customers" ToRole="CustomerAddress" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="CodingTempleECommerceModel.fk_UserCustomer" FromRole="Customer" ToRole="User" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -202,6 +222,10 @@
           <Parameter Name="prodName" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="Users" EntityType="CodingTempleECommerceModel.User" />
+          <AssociationSet Name="fk_UserCustomer" Association="CodingTempleECommerceModel.fk_UserCustomer">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_GetAllProducts_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -226,7 +250,22 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customers" Relationship="CodingTempleECommerceModel.fk_UserCustomer" FromRole="User" ToRole="Customer" />
         </EntityType>
+        <Association Name="fk_UserCustomer">
+          <End Type="CodingTempleECommerceModel.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingTempleECommerceModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -248,6 +287,7 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="CodingTempleECommerceModel.Customer">
               <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />

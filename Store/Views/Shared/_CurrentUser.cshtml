@@ -1,0 +1,6 @@
+﻿@if (WebSecurity.IsAuthenticated)
+{
+    <div>Welcome, @WebSecurity.CurrentUserName</div>
+}else{
+    <div>Welcome, Guest</div>
+}

@@ -1,4 +1,4 @@
-﻿@model Store.Models.Register
+﻿@model Store.Models.RegisterModel
 
 @{
     ViewBag.Title = "Register";
@@ -6,26 +6,70 @@
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post))
 {
-    @Html.ValidationSummary(false, "", new { @class = "bg-danger" })
     @Html.AntiForgeryToken()
     <fieldset>
         <legend>Login</legend>
         <div class="row">
             <div class="form-group">
-                @Html.LabelFor(x => x.usr.Username, new { @class = "control-label col-xs-3 text-right" })
-                @Html.TextBoxFor(x => x.usr.Username, new { @class = "form-control col-sm-9" })
+                @Html.LabelFor(x => x.username, new { @class = "control-label col-xs-3 text-right" })
+                @Html.TextBoxFor(x => x.username, new { @class = "form-control col-sm-9" })
+                @Html.ValidationMessageFor(m => m.username,"",new { @class = "bg-danger" })
             </div>
         </div>
         <div class="row">
             <div class="form-group">
                 @Html.LabelFor(x => x.password, new { @class = "control-label col-xs-3 text-right" })
                 @Html.TextBoxFor(x => x.password, new { @class = "form-control col-xs-9" })
+                @Html.ValidationMessageFor(m => m.password, "", new { @class = "bg-danger" })
             </div>
         </div>
         <div class="row">
             <div class="form-group">
-                @Html.LabelFor( x => x.cust.FirstName, new { @class = "control-label col-xs-3 text-right" })
-                @Html.TextBoxFor(x => x.cust.FirstName, new { @class = "form-control col-xs-9" })
+                @Html.LabelFor(x => x.email, new { @class = "control-label col-xs-3 text-right" })
+                @Html.TextBoxFor(x => x.email, new { @class = "form-control col-xs-9" })
+                @Html.ValidationMessageFor(m => m.email, "", new { @class = "bg-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor( x => x.firstName, new { @class = "control-label col-xs-3 text-right" })
+                @Html.TextBoxFor(x => x.firstName, new { @class = "form-control col-xs-9" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(x => x.middleInitial, new { @class = "control-label col-xs-3 text-right" })
+                @Html.TextBoxFor(x => x.middleInitial, new { @class = "form-control col-xs-9" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(x => x.lastName, new { @class = "control-label col-xs-3 text-right" })
+                @Html.TextBoxFor(x => x.lastName, new { @class = "form-control col-xs-9" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(x => x.streetName, new { @class = "control-label col-xs-3 text-right" })
+                @Html.TextBoxFor(x => x.streetName, new { @class = "form-control col-xs-9" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(x => x.city, new { @class = "control-label col-xs-3 text-right" })
+                @Html.TextBoxFor(x => x.city, new { @class = "form-control col-xs-9" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(x => x.state, new { @class = "control-label col-xs-3 text-right" })
+                @Html.TextBoxFor(x => x.state, new { @class = "form-control col-xs-9" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(x => x.zipcode, new { @class = "control-label col-xs-3 text-right" })
+                @Html.TextBoxFor(x => x.zipcode, new { @class = "form-control col-xs-9" })
             </div>
         </div>
         <div class="row">

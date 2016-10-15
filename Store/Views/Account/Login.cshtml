@@ -1,0 +1,35 @@
+﻿@model Store.Models.Login
+
+@{
+    ViewBag.Title = "Index";
+
+}
+
+    <h3>Please Sign In</h3>
+
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <fieldset>
+            <legend>Login</legend>
+            <div class="row">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.username, new { @class = "control-label col-xs-3 text-right" })
+                    @Html.TextBoxFor(x => x.username, new { @class = "form-control col-sm-9" })
+                    @Html.ValidationMessageFor(m => m.username, "", new { @class = "bg-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    @Html.LabelFor(x => x.password, new { @class = "control-label col-xs-3 text-right" })
+                    @Html.TextBoxFor(x => x.password, new { @class = "form-control col-xs-9" })
+                    @Html.ValidationMessageFor(m => m.password, "", new { @class = "bg-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-offset-2">
+                    <input type="submit" value="Submit" />
+                </div>
+            </div>
+        </fieldset>
+}

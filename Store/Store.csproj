@@ -217,11 +217,12 @@
       <DependentUpon>SportingGoodsModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ImageModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Product.cs">
       <DependentUpon>SportingGoodsModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductModel.cs" />
-    <Compile Include="Models\Register.cs" />
+    <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\SportingGoodsModels.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -350,6 +351,8 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\LoggedIn.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Shared\_CurrentUser.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
