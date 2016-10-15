@@ -2,11 +2,13 @@
 @{
     ViewBag.Title = "LoggedIn";
     string usr = Session["Username"].ToString();
+    string sid = Session.SessionID.ToString();
 }
 
 @if (Session["UserID"] != null)
 {
     <h4>Welcome @usr</h4>
+    <h3>@sid</h3>
 
     @Html.ActionLink("Log Out", "LogOut", "Login");
 }

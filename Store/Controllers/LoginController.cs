@@ -8,63 +8,63 @@ using System.Web.Security;
 
 namespace Store.Controllers
 {
-    public class LoginController : Controller
-    {
-        [HttpGet]
-        public ActionResult Index()
-        {
-            return View();
-        }
+    //public class LoginController : Controller
+    //{
+    //    [HttpGet]
+    //    public ActionResult Index()
+    //    {
+    //        return View();
+    //    }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Index(User model)
-        {
-                using (CodingTempleECommerceEntities entities = new CodingTempleECommerceEntities())
-                {
-                    var usr = entities.Users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+    //    [HttpPost]
+    //    [ValidateAntiForgeryToken]
+    //    public ActionResult Index(User model)
+    //    {
+    //            using (CodingTempleECommerceEntities entities = new CodingTempleECommerceEntities())
+    //            {
+    //                var usr = entities.Users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
-                    if (usr != null)
-                    {
-                        Session["UserID"] = usr.Id.ToString();
-                        Session["Username"] = usr.Username.ToString();
-                        return RedirectToAction("LoggedIn");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Username or Password is incorrect.");
-                    }
+    //                if (usr != null)
+    //                {
+    //                    Session["UserID"] = usr.Id.ToString();
+    //                    Session["Username"] = usr.Username.ToString();
+    //                    return RedirectToAction("LoggedIn");
+    //                }
+    //                else
+    //                {
+    //                    ModelState.AddModelError("", "Username or Password is incorrect.");
+    //                }
 
-                }
-                return View();
-        }
+    //            }
+    //            return View();
+    //    }
 
-        public ActionResult LoggedIn()
-        {
-            if (Session["UserID"] != null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Login");
-            }
-        }
+        //public ActionResult LoggedIn()
+        //{
+        //    if (Session["UserID"] != null)
+        //    {
+        //        return View();
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+        //}
 
-        [HttpGet]
-        public ActionResult Register()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public ActionResult Register()
+        //{
+        //    return View();
+        //}
 
-        public ActionResult LogOut()
-        {
-            if(Session["UserID"] != null)
-            {
-                Session.Clear();
-            }
-            return RedirectToAction("Index");
-        }
+        //public ActionResult LogOut()
+        //{
+        //    if(Session["UserID"] != null)
+        //    {
+        //        Session.Clear();
+        //    }
+        //    return RedirectToAction("Index");
+        //}
 
         //[HttpPost]
         //[ValidateAntiForgeryToken]
@@ -80,4 +80,3 @@ namespace Store.Controllers
         //    return View();
         //}
     }
-}
