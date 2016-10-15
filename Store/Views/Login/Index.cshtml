@@ -4,8 +4,11 @@
     ViewBag.Title = "Login";
 }
 
+@if (Session["UserID"] == null)
+{
+
 <div class="col-xs-offset-1 col-xs-10 col-xs-offset-1 loginForm">
-    @using (Html.BeginForm("Index","Login",FormMethod.Post))
+    @using (Html.BeginForm("Index", "Login", FormMethod.Post))
     {
         @Html.ValidationSummary(false, "", new { @class = "bg-danger" })
         @Html.AntiForgeryToken()
@@ -31,3 +34,7 @@
         </fieldset>
     }
 </div>
+}else
+{
+    <h3> Currently logged in as @Session["Username"]</h3>
+}

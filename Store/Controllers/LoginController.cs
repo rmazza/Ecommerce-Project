@@ -18,10 +18,8 @@ namespace Store.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(User model, string returnURL)
+        public ActionResult Index(User model)
         {
-            if (ModelState.IsValid)
-            {
                 using (CodingTempleECommerceEntities entities = new CodingTempleECommerceEntities())
                 {
                     var usr = entities.Users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
@@ -39,7 +37,6 @@ namespace Store.Controllers
 
                 }
                 return View();
-            }
         }
 
         public ActionResult LoggedIn()
@@ -58,6 +55,15 @@ namespace Store.Controllers
         public ActionResult Register()
         {
             return View();
+        }
+
+        public ActionResult LogOut()
+        {
+            if(Session["UserID"] != null)
+            {
+                Session.Clear();
+            }
+            return RedirectToAction("Index");
         }
 
         //[HttpPost]
