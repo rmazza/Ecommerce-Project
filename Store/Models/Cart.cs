@@ -12,15 +12,16 @@ namespace Store.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CustomerAddress
+    public partial class Cart
     {
         public int Id { get; set; }
-        public string StreetName { get; set; }
-        public string City { get; set; }
-        public string StateProvince { get; set; }
-        public int ZipCode { get; set; }
+        public string SessionKey { get; set; }
+        public int Qty { get; set; }
         public int UserID { get; set; }
+        public int ProductID { get; set; }
+        public System.DateTime DateCreated { get; set; }
     
+        public virtual Product Product { get; set; }
         public virtual User User { get; set; }
     }
 }

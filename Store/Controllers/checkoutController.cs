@@ -1,6 +1,8 @@
 ﻿using Store.Models;
 using System.Web.Mvc;
-
+using System.Linq;
+using System;
+using WebMatrix.WebData;
 
 namespace Store.Controllers
 {
@@ -11,7 +13,6 @@ namespace Store.Controllers
         public ActionResult Index()
         {
             return View();
-
         }
 
         [HttpPost]
@@ -22,23 +23,6 @@ namespace Store.Controllers
                 //TODO: Save Checkout info to database
                 using (CodingTempleECommerceEntities entitites = new CodingTempleECommerceEntities())
                 {
-                    entitites.Customers.Add(
-                        new Customer {
-                            FirstName = model.firstName,
-                            LastName = model.lastName,
-                            Email = model.email,
-                           
-                        });
-
-                    entitites.CustomerAddresses.Add(
-                        new CustomerAddress
-                        {
-                            City = model.city,
-                            StateProvince = model.state,
-                            StreetName = model.streetName,
-                            ZipCode = model.zipcode,
-                      
-                        });
                 }
                     return RedirectToAction("Index", "Receipt");
             }
@@ -46,6 +30,55 @@ namespace Store.Controllers
             {
                 return View(model);
             }
+        }
+
+        [HttpGet]
+        public ActionResult AddToCart()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddToCart(ProductModel model, int qty)
+        {
+            bool idAlreadyTaken = true;
+            Guid tempCartId;
+
+            using (CodingTempleECommerceEntities db = new CodingTempleECommerceEntities())
+            {
+                if (Session["SessionKey"] == null)
+                {
+                    while (idAlreadyTaken)
+                    {
+                        tempCartId = Guid.NewGuid();
+                        idAlreadyTaken = db.Carts.Any(x => x.SessionKey == tempCartId.ToString());
+                        Session["SessionKey"] = tempCartId.ToString();
+                    }   
+                }
+                
+                string sesKey = Session["SessionKey"].ToString();
+
+                var cartItem = db.Carts.SingleOrDefault(x => x.SessionKey == sesKey && x.ProductID == model.ID);
+
+                if(cartItem == null)
+                {
+                    var newitem = new Cart
+                    {
+                        SessionKey = sesKey,
+                        Qty = (int)qty,
+                        DateCreated = DateTime.Now,
+                        ProductID = (int)model.ID,
+                        UserID = WebSecurity.CurrentUserId
+                    };
+                    db.Carts.Add(newitem);
+                }
+                else
+                {
+                   cartItem.Qty += qty;
+                }
+                db.SaveChanges();
+            }           
+            return RedirectToRoute("~/Product/Products");
         }
     }
 }

@@ -6,13 +6,14 @@
     <edmx:Diagrams>
       <Diagram DiagramId="e23408774760444b985de8071bbbeda5" Name="Diagram1">
         <EntityTypeShape EntityType="CodingTempleECommerceModel.CustomerAddress" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="CodingTempleECommerceModel.Customer" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="CodingTempleECommerceModel.Image" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CodingTempleECommerceModel.Product" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
-        <AssociationConnector Association="CodingTempleECommerceModel.fk_CustomerAddress" ManuallyRouted="false" />
         <AssociationConnector Association="CodingTempleECommerceModel.fk_ImageProduct" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="CodingTempleECommerceModel.User" Width="1.5" PointX="5.375" PointY="4.75" />
-        <AssociationConnector Association="CodingTempleECommerceModel.fk_UserCustomer" />
+        <EntityTypeShape EntityType="CodingTempleECommerceModel.User" Width="1.5" PointX="10" PointY="3.25" />
+        <AssociationConnector Association="CodingTempleECommerceModel.fk_UsersCustomerAddress" />
+        <EntityTypeShape EntityType="CodingTempleECommerceModel.Cart" Width="1.5" PointX="5.5" PointY="5.375" />
+        <AssociationConnector Association="CodingTempleECommerceModel.fk_ProductCart" />
+        <AssociationConnector Association="CodingTempleECommerceModel.fk_UserCart" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -28,10 +28,10 @@ namespace Store.Models
         }
     
         public virtual DbSet<CustomerAddress> CustomerAddresses { get; set; }
-        public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Cart> Carts { get; set; }
     
         public virtual ObjectResult<sp_GetAllProducts_Result> sp_GetAllProducts()
         {

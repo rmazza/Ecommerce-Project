@@ -5,26 +5,26 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="CodingTempleECommerceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SessionKey" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Qty" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
         <EntityType Name="CustomerAddress">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StreetName" Type="nvarchar(max)" />
-          <Property Name="City" Type="nvarchar" MaxLength="100" />
-          <Property Name="StateProvince" Type="nvarchar" MaxLength="100" />
-          <Property Name="ZipCode" Type="int" />
-          <Property Name="CustomerID" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Customers">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="100" />
-          <Property Name="MiddleInitial" Type="nvarchar" MaxLength="1" />
-          <Property Name="Email" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="StreetName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="StateProvince" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ZipCode" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Image">
@@ -56,7 +56,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
           <Property Name="MiddleInitial" Type="nvarchar" MaxLength="2" />
           <Property Name="LastName" Type="nvarchar" MaxLength="100" />
@@ -65,20 +65,6 @@
           <Property Name="State" Type="nvarchar" MaxLength="50" />
           <Property Name="Zipcode" Type="int" />
         </EntityType>
-        <Association Name="fk_CustomerAddress">
-          <End Role="Customers" Type="Self.Customers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CustomerAddress">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_ImageProduct">
           <End Role="Products" Type="Self.Products" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -93,16 +79,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_UserCustomer">
+        <Association Name="fk_ProductCart">
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserCart">
           <End Role="Users" Type="Self.Users" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Customers">
+            <Dependent Role="Cart">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UsersCustomerAddress">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerAddress">
               <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
@@ -112,22 +126,26 @@
           <Parameter Name="prodName" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="CodingTempleECommerceModelStoreContainer">
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerAddress" EntityType="Self.CustomerAddress" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="fk_CustomerAddress" Association="Self.fk_CustomerAddress">
-            <End Role="Customers" EntitySet="Customers" />
-            <End Role="CustomerAddress" EntitySet="CustomerAddress" />
-          </AssociationSet>
           <AssociationSet Name="fk_ImageProduct" Association="Self.fk_ImageProduct">
             <End Role="Products" EntitySet="Products" />
             <End Role="Image" EntitySet="Image" />
           </AssociationSet>
-          <AssociationSet Name="fk_UserCustomer" Association="Self.fk_UserCustomer">
+          <AssociationSet Name="fk_ProductCart" Association="Self.fk_ProductCart">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserCart" Association="Self.fk_UserCart">
             <End Role="Users" EntitySet="Users" />
-            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UsersCustomerAddress" Association="Self.fk_UsersCustomerAddress">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="CustomerAddress" EntitySet="CustomerAddress" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -139,25 +157,12 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StreetName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="StateProvince" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ZipCode" Type="Int32" />
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="Self.fk_CustomerAddress" FromRole="CustomerAddress" ToRole="Customers" />
-        </EntityType>
-        <EntityType Name="Customer">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="MiddleInitial" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="CustomerAddresses" Relationship="Self.fk_CustomerAddress" FromRole="Customers" ToRole="CustomerAddress" />
+          <Property Name="StreetName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StateProvince" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ZipCode" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="CodingTempleECommerceModel.fk_UserCustomer" FromRole="Customer" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="CodingTempleECommerceModel.fk_UsersCustomerAddress" FromRole="CustomerAddress" ToRole="User" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -183,21 +188,8 @@
           <Property Name="Sport" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ProductBrand" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Images" Relationship="Self.fk_ImageProduct" FromRole="Products" ToRole="Image" />
+          <NavigationProperty Name="Carts" Relationship="CodingTempleECommerceModel.fk_ProductCart" FromRole="Product" ToRole="Cart" />
         </EntityType>
-        <Association Name="fk_CustomerAddress">
-          <End Role="Customers" Type="Self.Customer" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CustomerAddress">
-              <PropertyRef Name="CustomerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_ImageProduct">
           <End Role="Products" Type="Self.Product" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -214,13 +206,8 @@
         </Association>
         <EntityContainer Name="CodingTempleECommerceEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CustomerAddresses" EntityType="Self.CustomerAddress" />
-          <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Images" EntityType="Self.Image" />
           <EntitySet Name="Products" EntityType="Self.Product" />
-          <AssociationSet Name="fk_CustomerAddress" Association="Self.fk_CustomerAddress">
-            <End Role="Customers" EntitySet="Customers" />
-            <End Role="CustomerAddress" EntitySet="CustomerAddresses" />
-          </AssociationSet>
           <AssociationSet Name="fk_ImageProduct" Association="Self.fk_ImageProduct">
             <End Role="Products" EntitySet="Products" />
             <End Role="Image" EntitySet="Images" />
@@ -230,9 +217,18 @@
           <Parameter Name="prodName" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="Users" EntityType="CodingTempleECommerceModel.User" />
-          <AssociationSet Name="fk_UserCustomer" Association="CodingTempleECommerceModel.fk_UserCustomer">
+          <AssociationSet Name="fk_UsersCustomerAddress" Association="CodingTempleECommerceModel.fk_UsersCustomerAddress">
             <End Role="User" EntitySet="Users" />
-            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CustomerAddress" EntitySet="CustomerAddresses" />
+          </AssociationSet>
+          <EntitySet Name="Carts" EntityType="CodingTempleECommerceModel.Cart" />
+          <AssociationSet Name="fk_ProductCart" Association="CodingTempleECommerceModel.fk_ProductCart">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserCart" Association="CodingTempleECommerceModel.fk_UserCart">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Cart" EntitySet="Carts" />
           </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_GetAllProducts_Result">
@@ -258,8 +254,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Customers" Relationship="CodingTempleECommerceModel.fk_UserCustomer" FromRole="User" ToRole="Customer" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MiddleInitial" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -267,17 +262,60 @@
           <Property Name="StreetName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Zipcode" Type="Int32" />
+          <NavigationProperty Name="CustomerAddresses" Relationship="CodingTempleECommerceModel.fk_UsersCustomerAddress" FromRole="User" ToRole="CustomerAddress" />
+          <NavigationProperty Name="Carts" Relationship="CodingTempleECommerceModel.fk_UserCart" FromRole="User" ToRole="Cart" />
         </EntityType>
-        <Association Name="fk_UserCustomer">
+        <Association Name="fk_UsersCustomerAddress">
           <End Type="CodingTempleECommerceModel.User" Role="User" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="CodingTempleECommerceModel.Customer" Role="Customer" Multiplicity="*" />
+          <End Type="CodingTempleECommerceModel.CustomerAddress" Role="CustomerAddress" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Customer">
+            <Dependent Role="CustomerAddress">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionKey" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Qty" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Product" Relationship="CodingTempleECommerceModel.fk_ProductCart" FromRole="Cart" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="CodingTempleECommerceModel.fk_UserCart" FromRole="Cart" ToRole="User" />
+        </EntityType>
+        <Association Name="fk_ProductCart">
+          <End Type="CodingTempleECommerceModel.Product" Role="Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingTempleECommerceModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserCart">
+          <End Type="CodingTempleECommerceModel.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingTempleECommerceModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
               <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
@@ -291,24 +329,12 @@
           <EntitySetMapping Name="CustomerAddresses">
             <EntityTypeMapping TypeName="CodingTempleECommerceModel.CustomerAddress">
               <MappingFragment StoreEntitySet="CustomerAddress">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="StreetName" ColumnName="StreetName" />
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="StateProvince" ColumnName="StateProvince" />
                 <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="CodingTempleECommerceModel.Customer">
-              <MappingFragment StoreEntitySet="Customers">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -374,6 +400,18 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="CodingTempleECommerceModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="SessionKey" ColumnName="SessionKey" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

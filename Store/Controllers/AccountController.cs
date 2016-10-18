@@ -4,6 +4,7 @@ using System;
 using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using WebMatrix.WebData;
 
 namespace Store.Controllers
@@ -36,6 +37,7 @@ namespace Store.Controllers
 
             if (success)
             {
+                
                 return RedirectToAction("Index");
             }
             return View();
@@ -105,7 +107,9 @@ namespace Store.Controllers
         {
             Session.Clear();
             Session.Abandon();
+            FormsAuthentication.SignOut();
             WebSecurity.Logout();
+
             return RedirectToAction("Login");
         }
 

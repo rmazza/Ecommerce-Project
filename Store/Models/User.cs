@@ -17,7 +17,8 @@ namespace Store.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            this.Customers = new HashSet<Customer>();
+            this.CustomerAddresses = new HashSet<CustomerAddress>();
+            this.Carts = new HashSet<Cart>();
         }
     
         public int Id { get; set; }
@@ -32,6 +33,8 @@ namespace Store.Models
         public Nullable<int> Zipcode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customer> Customers { get; set; }
+        public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart> Carts { get; set; }
     }
 }

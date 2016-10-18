@@ -3,42 +3,12 @@
 <h2>@Model.productName</h2>
 
 
-@using (@Html.BeginForm())
+@using (@Html.BeginForm("AddToCart","Checkout",FormMethod.Post))
 {
-    @Html.DisplayFor(m => m.productName)
-    @Html.DisplayFor(m => m.productPrice)
+    @Html.HiddenFor(x => x.ID)
 
-    @Html.HiddenFor(m => m.productName)
-    @Html.HiddenFor(m => m.productPrice)
-    
-    @Html.HiddenFor(m => m.ID)
-    @Html.HiddenFor(m => m.productBrand)
-    @Html.HiddenFor(m => m.productDescription)
-    @Html.HiddenFor(m => m.inStock)
-    @Html.HiddenFor(m => m.images)
-    @Html.HiddenFor(m => m.modelNumber)
-    @Html.HiddenFor(m => m.position)
-    @Html.HiddenFor(m => m.size)
-    @Html.HiddenFor(m => m.sport)
-
-
-    <input type="number" name="quantity"/>
+    <input type="number" name="qty"/>
     <input type="submit" value="Upload" />
 }
 
-
-@Html.ActionLink("Checkout", "Index", "Checkout")
-@*<fieldset>
-        <legend>@Html.LabelFor(m => m.inStock)</legend>
-        @Html.TextBoxFor(m => m.inStock, new { @class = "form-control" })
-    </fieldset>*@
-@*<div class="row checkOutRow">
-    <div class="form-group">
-        @Html.LabelFor(m => m.zipcode, new { @class = "control-label col-sm-2" })
-        <div class="col-sm-10">
-            @Html.TextBoxFor(m => m.zipcode, new { @class = "form-control col-sm-10" })
-            @Html.ValidationMessageFor(m => m.zipcode)
-        </div>
-    </div>
-</div>*@
 

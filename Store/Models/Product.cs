@@ -18,6 +18,7 @@ namespace Store.Models
         public Product()
         {
             this.Images = new HashSet<Image>();
+            this.Carts = new HashSet<Cart>();
         }
     
         public int Id { get; set; }
@@ -33,5 +34,7 @@ namespace Store.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Image> Images { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart> Carts { get; set; }
     }
 }
