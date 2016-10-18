@@ -1,7 +1,7 @@
-﻿using Store.Models;
+﻿using SendGrid.Helpers.Mail;
+using Store.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
 using WebMatrix.WebData;
@@ -10,6 +10,7 @@ namespace Store.Controllers
 {
     public class AccountController : Controller
     {
+        
         // GET: Index
         [HttpGet]
         public ActionResult Index()
@@ -27,10 +28,12 @@ namespace Store.Controllers
             return View();
         }
 
+        // POST: Login
         [HttpPost]
         public ActionResult Login(Login model)
         {
             bool success = WebSecurity.Login(model.username, model.password, false);
+
             if (success)
             {
                 return RedirectToAction("Index");
@@ -38,6 +41,7 @@ namespace Store.Controllers
             return View();
         }
 
+        // GET: Register
         [HttpGet]
         public ActionResult Register()
         {
@@ -48,24 +52,50 @@ namespace Store.Controllers
             return View();
         }
 
+        // POST: Register
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
             using (CodingTempleECommerceEntities entities = new CodingTempleECommerceEntities())
             {
-                bool alreadyExistes = entities.Users.Any(x => x.Username == model.username);
-           
-                if (!alreadyExistes)
+                if (!WebSecurity.Initialized)
                 {
-                    WebSecurity.CreateUserAndAccount(model.username, model.password);
-                    WebSecurity.Login(model.username, model.password);
-
-                    ViewBag.Message = "Successfully Logged In";
-                    return RedirectToAction("");
+                    WebSecurity.InitializeDatabaseConnection("StoreServer", "Users", "Id", "UserName", autoCreateTables: true);
+                }
+                else if (WebSecurity.UserExists(model.username))
+                {
+                    ModelState.AddModelError("", "Username already exists");
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Username already Exists");
+                
+                    string token = WebSecurity.CreateUserAndAccount(model.username, model.password, 
+                        new {
+                            Email = model.email,
+                            FirstName = model.firstName,
+                            MiddleInitial = model.middleInitial,
+                            LastName = model.lastName,
+                            StreetName = model.streetName,
+                            City = model.city,
+                            State = model.state,
+                            Zipcode = model.zipcode
+                        }, true);
+
+
+                    string apiKey = ConfigurationManager.AppSettings["SendGrid.Key"];
+
+                    SendGrid.SendGridAPIClient sg = new SendGrid.SendGridAPIClient(apiKey);
+
+                    Email from = new Email("admin@bobsgoods.com");
+                    string subject = "Complete your registration";
+                    Email to = new Email(model.email);
+                    string emailContent = String.Format("<html><body><a href=\"{0}\">Complete your registration</a></body></html>",Request.Url.GetLeftPart(UriPartial.Authority) + "/Account/RegisterConfirmed/" + HttpUtility.UrlEncode(token) + "?userName=" + HttpUtility.UrlEncode(model.username));
+                    Content content = new Content("text/html", emailContent);
+                    Mail mail = new Mail(from, subject, to, content);
+
+                    sg.client.mail.send.post(requestBody: mail.Get());
+
+                    return RedirectToAction("RegisterComplete");
                 }
             }
             return View();
@@ -73,12 +103,31 @@ namespace Store.Controllers
 
         public ActionResult Logout()
         {
-                Session.Clear();
-                Session.Abandon();
+            Session.Clear();
+            Session.Abandon();
+            WebSecurity.Logout();
+            return RedirectToAction("Login");
+        }
 
-                WebSecurity.Logout();
-                return RedirectToAction("Login");
-
+        [HttpGet]
+        public ActionResult RegisterComplete()
+        {
+            return View();
+        }
+        
+        [AllowAnonymous]
+        public ActionResult RegisterConfirmed(string id, string userName)
+        {
+            if(WebSecurity.ConfirmAccount(userName, id))
+            {
+                
+                ViewBag.Confirmed = true;
+            }
+            else
+            {
+                ViewBag.Confirmed = false;
+            }
+            return View();
         }
     }
 }

@@ -56,6 +56,14 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
+          <Property Name="MiddleInitial" Type="nvarchar" MaxLength="2" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="StreetName" Type="nvarchar" MaxLength="100" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="Zipcode" Type="int" />
         </EntityType>
         <Association Name="fk_CustomerAddress">
           <End Role="Customers" Type="Self.Customers" Multiplicity="1">
@@ -251,6 +259,14 @@
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Customers" Relationship="CodingTempleECommerceModel.fk_UserCustomer" FromRole="User" ToRole="Customer" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleInitial" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StreetName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Zipcode" Type="Int32" />
         </EntityType>
         <Association Name="fk_UserCustomer">
           <End Type="CodingTempleECommerceModel.User" Role="User" Multiplicity="1">
@@ -349,6 +365,14 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="CodingTempleECommerceModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="StreetName" ColumnName="StreetName" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

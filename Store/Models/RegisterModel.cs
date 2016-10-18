@@ -47,7 +47,6 @@ namespace Store.Models
         public string state { get; set; }
 
         [DisplayName("Zipcode: (Optional)")]
-        [StringLength(5, MinimumLength = 5)]
         public Nullable<int> zipcode { get; set; }
     }
 }

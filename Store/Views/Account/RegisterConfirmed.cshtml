@@ -1,0 +1,15 @@
+﻿@if (ViewBag.Confirmed)
+{
+    <div class="row">
+        <div class="bg-success">
+            <h3>Email Address Confirmed</h3>
+            @Html.ActionLink("Click here to sign in", "Login","Account")
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="bg-danger">Email Addres Not Confirmed</div>
+    </div>
+}

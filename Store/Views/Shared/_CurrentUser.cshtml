@@ -1,6 +1,14 @@
 ﻿@if (WebSecurity.IsAuthenticated)
 {
-    <div>Welcome, @WebSecurity.CurrentUserName</div>
-}else{
-    <div>Welcome, Guest</div>
+    <div class="currentUser">Welcome, @WebSecurity.CurrentUserName</div>
+    @Html.ActionLink("Logout", "Logout", "Account")
+}
+else
+{
+    <div class="col-xs-offset-5 col-xs-2">
+        <div class="currentUser">Welcome, Guest</div>
+        <div class="currentUserLinks">
+            @Html.ActionLink("Login", "Login", "Account") / @Html.ActionLink("Register", "Register", "Account")
+        </div>
+    </div>
 }
