@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-
+using WebMatrix.WebData;
 
 namespace Store.Controllers
 {
@@ -11,6 +11,11 @@ namespace Store.Controllers
     {
         public ActionResult Products()
         {
+            if (!WebSecurity.Initialized)
+            {
+                WebSecurity.InitializeDatabaseConnection("StoreServer", "Users", "Id", "UserName", autoCreateTables: true);
+            }
+
             List<ProductModel> model = new List<ProductModel>();
 
             using (CodingTempleECommerceEntities entities = new CodingTempleECommerceEntities())
@@ -38,6 +43,11 @@ namespace Store.Controllers
 
         public ActionResult SingleProduct(int? id)
         {
+            if (!WebSecurity.Initialized)
+            {
+                WebSecurity.InitializeDatabaseConnection("StoreServer", "Users", "Id", "UserName", autoCreateTables: false);
+            }
+
             if (id == null) { id = 1; }
 
             using (CodingTempleECommerceEntities entities = new CodingTempleECommerceEntities())
@@ -71,21 +81,6 @@ namespace Store.Controllers
             return View(model);
 
         }
-
-            //if (Request.Cookies["OrderHeader"] == null)
-            //{
-            //    //Execute normally by adding new cart
-            //}else
-            //{
-            //    //Fetch cookie
-            //    //header = entities.salesOrderHeader.Single(x => x.SalesOrderID == int.Parse(Request.Cookies["OrderHeader"].Value));
-            //}
-
-
-            //Response.Cookies.Add(new System.Web.HttpCookie("Order Header", header.salesorderid.tostring(())))
-                //return RedirectToAction("Index", "Home");
-                // redirect to index of the homeContoller
-                //return RedirectToAction("Index", "Checkout");
             
         }
 

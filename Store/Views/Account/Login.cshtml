@@ -1,43 +1,54 @@
 ﻿@model Store.Models.Login
+@{ 
+    bool result = WebSecurity.IsAuthenticated;
+}
 
 <div class="col-xs-12">
-    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "loginForm" }))
+    @if (result)
     {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary("", new { @class = "bg-danger" })
-        <fieldset>
-            <div class="row">
-                <div class="form-group loginBox">
-                    <div class="logInput">
-                        @Html.TextBoxFor(x => x.username, new { @class = "form-control", @placeholder = "Username" })
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group loginBox">
-                    <div class="logInput">
-                        @Html.PasswordFor(x => x.password, new { @class = "form-control", @placeholder = "Password" })
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="loginSubmit">
-                    <div class="logInput">
-                        <input type="submit" value="Login" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="row links">
-                <div class="col-xs-12 forgotPassLink">
-                    @Html.ActionLink("Forgot Password?", "ForgotPassword", "Account")
-                </div>
-                <div class="col-xs-12 forgotPassLink">
-                    @Html.ActionLink("Register", "Register", "Account")
-                </div>
-            </div>
-        </fieldset>
+        <h2>You're logged in as @WebSecurity.CurrentUserName</h2>
+        @Html.ActionLink("Products", "Products", "Product")
+        @Html.ActionLink("Logout","Logout","Account")
     }
+    else
+    {
+        using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "loginForm" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "bg-danger" })
+            <fieldset>
+                <div class="row">
+                    <div class="form-group loginBox">
+                        <div class="logInput">
+                            @Html.TextBoxFor(x => x.username, new { @class = "form-control", @placeholder = "Username" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group loginBox">
+                        <div class="logInput">
+                            @Html.PasswordFor(x => x.password, new { @class = "form-control", @placeholder = "Password" })
+                        </div>
+                    </div>
+                </div>
 
-</div>
+                <div class="row">
+                    <div class="loginSubmit">
+                        <div class="logInput">
+                            <input type="submit" value="Login" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row links">
+                    <div class="col-xs-12 forgotPassLink">
+                        @Html.ActionLink("Forgot Password?", "ForgotPassword", "Account")
+                    </div>
+                    <div class="col-xs-12 forgotPassLink">
+                        @Html.ActionLink("Register", "Register", "Account")
+                    </div>
+                </div>
+            </fieldset>
+        }
+    }
+    </div>

@@ -3,10 +3,8 @@
 <h2>@Model.productName</h2>
 
 
-@using (@Html.BeginForm("AddToCart","Checkout",FormMethod.Post))
+@using (@Html.BeginForm("AddToCart","Checkout",new { id = Model.ID, price = Model.productPrice }, FormMethod.Post))
 {
-    @Html.HiddenFor(x => x.ID)
-
     <input type="number" name="qty"/>
     <input type="submit" value="Upload" />
 }

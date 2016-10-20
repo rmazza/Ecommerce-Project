@@ -1,14 +1,23 @@
-﻿@if (WebSecurity.IsAuthenticated)
-{
-    <div class="currentUser">Welcome, @WebSecurity.CurrentUserName</div>
-    @Html.ActionLink("Logout", "Logout", "Account")
+﻿@{ 
+    string username = String.Empty;
+
+    if (WebSecurity.IsAuthenticated)
+    {
+        username = WebSecurity.CurrentUserName;
+    }else
+    {
+        username = "Guest";
+    }
 }
-else
-{
-    <div class="col-xs-offset-5 col-xs-2">
-        <div class="currentUser">Welcome, Guest</div>
-        <div class="currentUserLinks">
-            @Html.ActionLink("Login", "Login", "Account") / @Html.ActionLink("Register", "Register", "Account")
-        </div>
-    </div>
-}
+
+<ul class="nav navbar-nav currentUser">
+    <li class="cU">Welcome, @username</li>
+    @if (username == "Guest")
+    {
+        <li>@Html.ActionLink("Login", "Login", "Account")</li>
+    }
+    else
+    {
+        <li>@Html.ActionLink("Logout","Logout","Account")</li>
+    }
+</ul>

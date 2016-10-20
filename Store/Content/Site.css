@@ -88,19 +88,17 @@ label.control-label.col-sm-2 {
     text-align: right;
 }
 
-div.currentUser {
-    text-align: center;
+ul.currentUser {
     color: white;
     font-size: 20px;
-    margin-top:12px;
+    float:right;
 }
-div.currentUserLinks{
-    color:white;
-    text-align:center;
+ul.currentUser li a {
+    color: white;
+    font-size:14px;
 }
-div.currentUserLinks a {
-    color:white;
-    text-decoration: none;
+li.cU {
+    margin-top: 10px;
 }
 .loginForm input {
     width: 80%;
@@ -133,4 +131,16 @@ div.currentUserLinks a {
 
 .links {
     margin-top: 10px
+}
+
+.item {
+    background-color:white;
+}
+
+.carousel {
+    margin-top: 20px;
+}
+.carousel-inner > .item > a > img {
+    width: 50%;
+    margin: 0 auto;
 }

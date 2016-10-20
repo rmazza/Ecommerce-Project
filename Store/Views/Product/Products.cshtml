@@ -5,24 +5,26 @@
 }
 
 <h2>@ViewBag.Title</h2>
-    <div class="col-xs-12">
-        @foreach (var m in @Model)
-        {
-                <div class="col-md-4 prodListBox">
-                    <a href="/Product/SingleProduct/@m.ID">
-                        <img class="prodListImg" src="@Url.Content(m.images.First().img)" />
-                    </a>
-                        <h3>@m.productName</h3>
-                    
-                        <div class="col-xs-6 text-left prodListPrice">
-                            @m.productPrice.Value.ToString("c")
-                        </div>
+<div class="col-xs-12">
+    @foreach (var m in @Model)
+    {
+        <div class="col-md-4 prodListBox">
+            <a href="/Product/SingleProduct/@m.ID">
+                <img class="prodListImg" src="@Url.Content(m.images.First().img)" />
+            </a>
+            <h3>@m.productName</h3>
 
-        
-                        <div class="col-xs-offset-2 col-xs-4 btn btn-primary text-right">
-                            @Html.ActionLink("Add to Cart", "AddToCart", "Checkout", new { id = m.ID, qty = 1 }, null)
-                        </div>
-                </div>
-   
-        }
-    </div>
+            <div class="col-xs-6 text-left prodListPrice">
+                @m.productPrice.Value.ToString("c")
+            </div>
+            <div class="col-xs-12">
+                @using (Html.BeginForm("AddToCart", "Checkout", new { id = m.ID, price = m.productPrice }, FormMethod.Post))
+                {
+                    <input class="col-xs-6" type="number" name="qty" />
+                    <input class="col-xs-6" type="submit" value="Add To Cart" />
+                }
+            </div>
+        </div>
+
+    }
+</div>

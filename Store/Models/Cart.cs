@@ -20,6 +20,7 @@ namespace Store.Models
         public int UserID { get; set; }
         public int ProductID { get; set; }
         public System.DateTime DateCreated { get; set; }
+        public Nullable<decimal> ProductPrice { get; set; }
     
         public virtual Product Product { get; set; }
         public virtual User User { get; set; }

@@ -15,6 +15,7 @@
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ProductPrice" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="CustomerAddress">
           <Key>
@@ -291,6 +292,7 @@
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Product" Relationship="CodingTempleECommerceModel.fk_ProductCart" FromRole="Cart" ToRole="Product" />
           <NavigationProperty Name="User" Relationship="CodingTempleECommerceModel.fk_UserCart" FromRole="Cart" ToRole="User" />
+          <Property Name="ProductPrice" Type="Decimal" Precision="18" Scale="0" />
         </EntityType>
         <Association Name="fk_ProductCart">
           <End Type="CodingTempleECommerceModel.Product" Role="Product" Multiplicity="1">
@@ -407,6 +409,7 @@
           <EntitySetMapping Name="Carts">
             <EntityTypeMapping TypeName="CodingTempleECommerceModel.Cart">
               <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
                 <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />

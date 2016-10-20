@@ -9,6 +9,10 @@ namespace Store.Models
 {
     public class CheckoutModel
     {
+        public string username { get; set; }
+        public string userID { get; set; }
+        public string cartID { get; set; }
+
         [DisplayName("First Name:")]
         [Required(ErrorMessage = "First Name is required")]
         [StringLength(20, MinimumLength = 2)]
@@ -21,11 +25,6 @@ namespace Store.Models
         [Required(ErrorMessage = "Last Name is required")]
         [StringLength(20, MinimumLength = 2)]
         public string lastName { get; set; }
-
-        [DisplayName("Email:")]
-        [EmailAddress]
-        [StringLength(30)]
-        public string email { get; set; }
 
         [DisplayName("Street:")]
         [Required(ErrorMessage = "Street Address is required")]
@@ -44,7 +43,6 @@ namespace Store.Models
 
         [DisplayName("Zipcode:")]
         [Required(ErrorMessage = "Zipcode is required")]
-        [StringLength(5, MinimumLength = 5)]
         public Nullable<int> zipcode { get; set; }
 
     }

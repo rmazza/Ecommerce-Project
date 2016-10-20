@@ -117,6 +117,10 @@
       <HintPath>..\packages\reCaptcha.AspNet.Mvc.1.2.3.0\lib\net451\reCaptcha.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Rentler.SmartyStreets, Version=0.1.71.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rentler.SmartyStreets.0.1.71.0\lib\net45\Rentler.SmartyStreets.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SendGrid, Version=8.0.5.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
       <HintPath>..\packages\Sendgrid.8.0.5\lib\SendGrid.dll</HintPath>
       <Private>True</Private>
@@ -221,6 +225,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductAdminController.cs" />
@@ -232,10 +237,12 @@
     <Compile Include="Models\Cart.cs">
       <DependentUpon>SportingGoodsModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\CheckoutModel.cs" />
     <Compile Include="Models\CustomerAddress.cs">
       <DependentUpon>SportingGoodsModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\Image.cs">
       <DependentUpon>SportingGoodsModels.tt</DependentUpon>
     </Compile>
@@ -246,6 +253,7 @@
     </Compile>
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\SmartStreetModel.cs" />
     <Compile Include="Models\SportingGoodsModels.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -377,6 +385,12 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\RegisterComplete.cshtml" />
     <Content Include="Views\Account\RegisterConfirmed.cshtml" />
+    <Content Include="Views\Carts\Create.cshtml" />
+    <Content Include="Views\Carts\Delete.cshtml" />
+    <Content Include="Views\Carts\Details.cshtml" />
+    <Content Include="Views\Carts\Edit.cshtml" />
+    <Content Include="Views\Carts\Index.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

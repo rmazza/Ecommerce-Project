@@ -1,4 +1,13 @@
-﻿using System.Web.Mvc;
+﻿using SendGrid.Helpers.Mail;
+using Store.Models;
+using System;
+using System.Configuration;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Security;
+using WebMatrix.WebData;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Store.Controllers
 {
@@ -7,7 +16,18 @@ namespace Store.Controllers
        
         public ActionResult Index()
         {
-            return View();
+            if (!WebSecurity.Initialized)
+            {
+                WebSecurity.InitializeDatabaseConnection("StoreServer", "Users", "Id", "UserName", autoCreateTables: true);
+            }
+         
+            using (CodingTempleECommerceEntities db = new CodingTempleECommerceEntities())
+            {
+                //var images = db.Images.Where(x => x.Id % 5 == 0).Select(x => new ImageModel { img = x.ImgLink }).ToList();
+                var images = db.Images.Where(x => x.Id % 5 == 0).Select(x => new ImageModel { img = x.ImgLink, prodID = x.ProductId }).ToList();
+
+                return View(images);
+            }
         }
 
         public ActionResult About()
