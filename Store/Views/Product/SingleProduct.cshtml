@@ -1,12 +1,42 @@
 ﻿@model Store.Models.ProductModel
 
+@{ 
+    var img = Model.images.FirstOrDefault().img;
+}
+
 <h2>@Model.productName</h2>
 
-
-@using (@Html.BeginForm("AddToCart","Checkout",new { id = Model.ID, price = Model.productPrice }, FormMethod.Post))
-{
-    <input type="number" name="qty"/>
-    <input type="submit" value="Upload" />
-}
+<div class="row">
+    <div class="col-xs-8">
+        <img src="@img" class="col-xs-12 singleImage" />
+    </div>
+    <div class="col-xs-4 descriptionBox">
+        <h4>@Model.productName</h4>
+        <h5>@Model.productPrice.Value.ToString("c")</h5>
+        <ul>
+            <li>Brand: @Model.productBrand</li>
+            <li>Model: @Model.modelNumber</li>
+            <li>Size:  @Model.size</li>
+            <li>Sport: @Model.sport</li>
+        </ul>
+        
+        @using (@Html.BeginForm("AddToCart", "Checkout", new { id = Model.ID, price = Model.productPrice }, FormMethod.Post))
+        {
+            <div class="row">
+                <div class="col-xs-5">
+                    <input class="customInput" type="number" name="qty" />
+                </div>
+                <div class="col-xs-5">
+                    <input class="customButton" type="submit" value="Add To Cart" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-offset-1 col-xs-11">
+        <p>@Model.productDescription</p>
+    </div>
+</div>
 
 

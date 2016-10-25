@@ -14,11 +14,16 @@
     <li class="cU">@username</li>
     @if (username == "Guest")
     {
-        <li>@Html.ActionLink("Login", "Login", "Account")</li>
+        <li>
+            @Html.ActionLink("Login", "Login", "Account")
+        </li>
+        <li>
+            @Html.ActionLink("Register", "Register", "Account")
+        </li>
     }
     else
     {
-        <li>@Html.ActionLink("Logout","Logout","Account")</li>
-        <li>@Html.ActionLink("Cart","Index","Carts")</li>
+        <li>@Html.ActionLink("Logout", "Logout", "Account")</li>
+        <li>@Html.ActionLink("Cart", "Index", "Carts")</li>
     }
 </ul>

@@ -17,36 +17,14 @@ namespace Store.Models
         [Required(ErrorMessage = "Password is required")]
         public string password { get; set; }
 
+        [Required(ErrorMessage = "Confirm Password is required")]
+        public string confirmPassword { get; set; }
+
         [DisplayName("Email:")]
         [EmailAddress]
         [Required(ErrorMessage = "Email is required")]
         [StringLength(120)]
         public string email { get; set; }
 
-        [DisplayName("First Name: (Optional)")]
-        [StringLength(20, MinimumLength = 2)]
-        public string firstName { get; set; }
-
-        [DisplayName("Middle Initial: (Optional)")]
-        public string middleInitial { get; set; }
-
-        [DisplayName("Last Name: (Optional)")]
-        [StringLength(20, MinimumLength = 2)]
-        public string lastName { get; set; }
-
-        [DisplayName("Street: (Optional)")]
-        [StringLength(40)]
-        public string streetName { get; set; }
-
-        [DisplayName("City: (Optional)")]
-        [StringLength(20, MinimumLength = 2)]
-        public string city { get; set; }
-
-        [DisplayName("State: (Optional)")]
-        [StringLength(2, MinimumLength = 2)]
-        public string state { get; set; }
-
-        [DisplayName("Zipcode: (Optional)")]
-        public Nullable<int> zipcode { get; set; }
     }
 }

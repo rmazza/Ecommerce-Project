@@ -19,9 +19,6 @@ else
         <th>
             <span>Product Total</span>
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </th>
         <th></th>
     </tr>
 
@@ -41,9 +38,6 @@ else
                 decimal? total = prodPrice * q;
             }
             <span>@total.Value.ToString("c")</span>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

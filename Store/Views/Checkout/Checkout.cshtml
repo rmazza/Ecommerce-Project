@@ -1,5 +1,9 @@
 ﻿@model Store.Models.RecieptModel
 
+@{
+    decimal? total = 0;
+}
+
 <h3>
     Reciept
 </h3>
@@ -27,17 +31,22 @@
                     <th>Quantity</th>
                     <th>Total</th>
                 </tr>
-
                 @foreach (var m in Model.currentCart)
                 {
                     decimal? totalPerItem = m.Qty * m.ProductPrice;
+                    total += totalPerItem;
                     <tr>
                         <td>@m.Product.ProductName</td>
                         <td>@m.Qty</td>
-                        <td>@totalPerItem</td>
+                        <td>@totalPerItem.Value.ToString("c")</td>
                     </tr>
                 }
-
+                <tr></tr>
+                <tr>
+                    <td></td>
+                    <td>SubTotal</td>
+                    <td>@total.Value.ToString("c")</td>
+                </tr>
             </table>
         </div>
     }

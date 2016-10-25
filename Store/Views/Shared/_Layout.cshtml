@@ -7,6 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <meta name="description" content="The description of my page" />
+    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans:300,400,700" rel="stylesheet">
 </head>
 <body ng-app="myApp">
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -17,19 +18,36 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Sporting Goods", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Products", "Products", "Product")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_CurrentUser")
             </div>
         </div>
     </div>
     <div class="container body-content">
-        @RenderBody()  
+        <div class="col-xs-3">
+            <ul class="sideMenu">
+                <li><h2>Sports</h2></li>
+                <li class="hvr-forward"><a href="/Product/Search/Hockey">Hockey</a></li>
+                <li class="hvr-forward"><a href="/Product/Search/Baseball">Baseball</a></li>
+                <li class="hvr-forward"><a href="/Product/Search/Basketball">Basketball</a></li>
+                <li class="hvr-forward"><a href="/Product/Search/Football">Football</a></li>
+                <li class="hvr-forward">Soccer</li>
+                <li class="hvr-forward">Lacrosse</li>
+                <li class="hvr-forward">Tennis</li>
+                <li><h2>Apparel</h2></li>
+                <li class="hvr-forward">Youth</li>
+                <li class="hvr-forward">Mens</li>
+                <li class="hvr-forward">Women</li>
+            </ul>
+        </div>
+        <div class="col-xs-9"> @RenderBody()  </div>
         <footer>
         
         </footer>

@@ -1,9 +1,11 @@
 ﻿@if (ViewBag.Confirmed)
 {
-    <div class="row">
+    <div class="row text-center">
         <div class="bg-success">
-            <h3>Email Address Confirmed</h3>
-            @Html.ActionLink("Click here to sign in", "Login","Account")
+            <h2>Email Address Confirmed</h2>
+        </div>
+        <div>
+           <h3>@Html.ActionLink("Click here to sign in", "Login","Account")</h3>
         </div>
     </div>
 }

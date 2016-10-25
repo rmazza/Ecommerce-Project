@@ -2,6 +2,7 @@
 using Store.Models;
 using System;
 using System.Configuration;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -48,10 +49,6 @@ namespace Store.Controllers
         [HttpGet]
         public ActionResult Register()
         {
-            if (!WebSecurity.Initialized)
-            {
-                WebSecurity.InitializeDatabaseConnection("StoreServer", "Users", "Id", "UserName", autoCreateTables: true);
-            }
             return View();
         }
 
@@ -61,9 +58,9 @@ namespace Store.Controllers
         {
             using (CodingTempleECommerceEntities entities = new CodingTempleECommerceEntities())
             {
-                if (!WebSecurity.Initialized)
+                if (model.password != model.confirmPassword)
                 {
-                    WebSecurity.InitializeDatabaseConnection("StoreServer", "Users", "Id", "UserName", autoCreateTables: true);
+                    ModelState.AddModelError("", "Passwords do not match");
                 }
                 else if (WebSecurity.UserExists(model.username))
                 {
@@ -71,17 +68,9 @@ namespace Store.Controllers
                 }
                 else
                 {
-
                     string token = WebSecurity.CreateUserAndAccount(model.username, model.password,
                         new {
                             Email = model.email
-                            //FirstName = model.firstName,
-                            //MiddleInitial = model.middleInitial,
-                            //LastName = model.lastName,
-                            //StreetName = model.streetName,
-                            //City = model.city,
-                            //State = model.state,
-                            //Zipcode = model.zipcode
                         }, true);
 
 
@@ -89,7 +78,7 @@ namespace Store.Controllers
 
                     SendGrid.SendGridAPIClient sg = new SendGrid.SendGridAPIClient(apiKey);
 
-                    Email from = new Email("admin@bobsgoods.com");
+                    Email from = new Email("CustomerSupport@bobsgoods.com");
                     string subject = "Complete your registration";
                     Email to = new Email(model.email);
                     string emailContent = String.Format("<html><body><a href=\"{0}\">Complete your registration</a></body></html>", Request.Url.GetLeftPart(UriPartial.Authority) + "/Account/RegisterConfirmed/" + HttpUtility.UrlEncode(token) + "?userName=" + HttpUtility.UrlEncode(model.username));
@@ -173,6 +162,55 @@ namespace Store.Controllers
                 }
             }
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPassword(ForgotPasswordModel model)
+        {
+            if (WebSecurity.UserExists(model.nameOrEmail))
+            {
+                using (CodingTempleECommerceEntities db = new CodingTempleECommerceEntities())
+                {
+                    var usr = db.Users.Where(x => x.Username == model.nameOrEmail).SingleOrDefault();
+
+                    string token = WebSecurity.GeneratePasswordResetToken(model.nameOrEmail, 60);
+
+                    string apiKey = ConfigurationManager.AppSettings["SendGrid.Key"];
+                    SendGrid.SendGridAPIClient sg = new SendGrid.SendGridAPIClient(apiKey);
+
+                    Email from = new Email("CustomerSupport@bobsgoods.com");
+                    string subject = "Complete your registration";
+                    Email to = new Email(usr.Email);
+                    string emailContent = String.Format("<html><body><a href=\"{0}\">Click to Here to reset your password</a></body></html>", Request.Url.GetLeftPart(UriPartial.Authority) + "/Account/ResetPassword/" + HttpUtility.UrlEncode(token) + "?userName=" + HttpUtility.UrlEncode(model.nameOrEmail));
+                    Content content = new Content("text/html", emailContent);
+                    Mail mail = new Mail(from, subject, to, content);
+
+                    sg.client.mail.send.post(requestBody: mail.Get());
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "User does not exist in the database");
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult ResetPasword()
+        {
+
         }
     }
 }

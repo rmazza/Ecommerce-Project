@@ -9,13 +9,9 @@ namespace Store.Controllers
     [Log]
     public class ProductController : Controller
     {
+        [HttpGet]
         public ActionResult Products()
         {
-            if (!WebSecurity.Initialized)
-            {
-                WebSecurity.InitializeDatabaseConnection("StoreServer", "Users", "Id", "UserName", autoCreateTables: true);
-            }
-
             List<ProductModel> model = new List<ProductModel>();
 
             using (CodingTempleECommerceEntities entities = new CodingTempleECommerceEntities())
@@ -37,6 +33,40 @@ namespace Store.Controllers
                         img = y.ImgLink
                     })
                 }).ToList();
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult Search(string id)
+        {
+            List<ProductModel> model = new List<ProductModel>();
+
+            using (CodingTempleECommerceEntities db = new CodingTempleECommerceEntities())
+            {
+                model = db.Products.Where(x => x.Sport == id).Select(x =>
+                new ProductModel
+                {
+                    ID = x.Id,
+                    inStock = x.InStock ?? false,
+                    modelNumber = x.ModelNumber,
+                    position = x.Position,
+                    productBrand = x.ProductBrand,
+                    productDescription = x.ProductDescription,
+                    productName = x.ProductName,
+                    productPrice = x.ProductPrice,
+                    size = x.Size,
+                    sport = x.Sport,
+                    images = x.Images.Select(y => new ImageModel
+                    {
+                        img = y.ImgLink
+                    })
+                }).ToList();
+            }
+
+            if(model.Count == 0)
+            {
+                RedirectToAction("Products");
             }
             return View(model);
         }

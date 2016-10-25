@@ -22,12 +22,11 @@
                 @using (Html.BeginForm("AddToCart", "Checkout", new { id = m.ID, price = m.productPrice }, FormMethod.Post))
                 {
                     <div class="form-group">
-                        <input class="col-xs-4 customInput" type="number" name="qty" />
-                        <input class="col-xs-6 customButton" type="submit" value="Add To Cart" />
+                        <input class="col-xs-4" type="number" name="qty" />
+                        <input class="col-xs-6" type="submit" value="Add To Cart" />
                     </div>
                 }
             </div>
         </div>
-
     }
 </div>
