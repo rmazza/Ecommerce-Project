@@ -19,6 +19,8 @@ namespace Store.Models
         {
             this.CustomerAddresses = new HashSet<CustomerAddress>();
             this.Carts = new HashSet<Cart>();
+            this.SalesOrderHeaders = new HashSet<SalesOrderHeader>();
+            this.SalesOrders = new HashSet<SalesOrder>();
         }
     
         public int Id { get; set; }
@@ -36,5 +38,9 @@ namespace Store.Models
         public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SalesOrderHeader> SalesOrderHeaders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SalesOrder> SalesOrders { get; set; }
     }
 }

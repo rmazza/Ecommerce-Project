@@ -252,7 +252,14 @@
       <DependentUpon>SportingGoodsModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\RecieptModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\SalesOrder.cs">
+      <DependentUpon>SportingGoodsModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalesOrderHeader.cs">
+      <DependentUpon>SportingGoodsModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SmartStreetModel.cs" />
     <Compile Include="Models\SportingGoodsModels.Context.cs">
       <AutoGen>True</AutoGen>
@@ -368,7 +375,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Checkout\Index.cshtml" />
+    <Content Include="Views\Checkout\Checkout.cshtml" />
     <Content Include="Views\Shared\_Login.cshtml" />
     <Content Include="Views\web.config" />
     <Content Include="Views\List.cshtml" />
@@ -391,6 +398,8 @@
     <Content Include="Views\Carts\Edit.cshtml" />
     <Content Include="Views\Carts\Index.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Checkout\Reciept.cshtml" />
+    <Content Include="Views\Checkout\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

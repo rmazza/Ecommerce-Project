@@ -4,20 +4,19 @@ using System.Linq;
 using System;
 using WebMatrix.WebData;
 using System.Configuration;
-using System.Net;
-using System.Web;
-using System.IO;
-using Newtonsoft.Json.Linq;
 using Rentler.SmartyStreets;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Store.Controllers
 {
     [Log]
     public class CheckoutController : Controller
     {
-        int numItems { get; set; }
+        private decimal Tax_1 = 0;
+        private decimal Tax_2 = 0;
+        private decimal Tax_3 = 0;
 
         public ActionResult Index()
         {
@@ -52,6 +51,9 @@ namespace Store.Controllers
         {
             bool idAlreadyTaken = true;
             Guid tempCartId;
+            int identification = 0;
+
+            identification = (WebSecurity.IsAuthenticated) ? WebSecurity.CurrentUserId : 0;
 
             using (CodingTempleECommerceEntities db = new CodingTempleECommerceEntities())
             {
@@ -77,7 +79,7 @@ namespace Store.Controllers
                         Qty = (int)qty,
                         DateCreated = DateTime.Now,
                         ProductID = id,
-                        UserID = WebSecurity.CurrentUserId,
+                        UserID = identification,
                         ProductPrice = price
                     };
 
@@ -98,11 +100,63 @@ namespace Store.Controllers
             return View();
         }
 
+        [HttpPost]
         public async Task<ActionResult> Checkout(CheckoutModel model)
         {
             var result = await VerifyAddress(model.streetName, model.city, model.state, model.zipcode);
+
+            if(result.Count == 0)
+            {
+                ModelState.AddModelError("", "Invalid Address Given");
+            }
+            else
+            {
+                RecieptModel recModel = new RecieptModel();
+
+                var sesKey = Session["Sessionkey"].ToString();
+                decimal subTotal = 0;
+
+                using (CodingTempleECommerceEntities db = new CodingTempleECommerceEntities())
+                {
+                    var carts = db.Carts.Where(c => c.SessionKey == sesKey).Include(c => c.Product).Include(c => c.User).ToList();
+
+                    foreach (var item in carts)
+                    {
+                        subTotal += (decimal)item.ProductPrice * item.Qty;
+                    }
+
+                    var order = new SalesOrder
+                    {
+                        CustomerFirstName = model.firstName,
+                        CustomerMiddleInitial = model.middleInitial,
+                        CustomerLastName = model.lastName,
+                        SessionKey = sesKey,
+                        Address = model.streetName,
+                        City = model.city,
+                        State = model.state,
+                        Zipcode = (int)model.zipcode,
+                        UserID = WebSecurity.CurrentUserId,
+                        SubTotal = subTotal,
+                        Total = subTotal + Tax_1 + Tax_2 + Tax_3,
+                        Date = DateTime.Now
+                    };
+
+                    db.SalesOrders.Add(order);
+                    db.SaveChanges();
+
+                    recModel.currentCart = carts;
+                    recModel.sale = order;
+                    recModel.checkModel = model;
+
+                    Session["SessionKey"] = null;
+                    return View(recModel);
+                }
+            }
+           
+
             return View();
         }
+        
 
         public async Task<List<SmartyStreetsAddress>> VerifyAddress(string streetName, string cityName, string stateName, int? zipCode)
         {

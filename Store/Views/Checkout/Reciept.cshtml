@@ -1,0 +1,45 @@
+﻿@model Store.Models.RecieptModel
+
+<h3>
+    Reciept
+</h3>
+
+@{
+    if (Model != null)
+    {
+        string firstname = Model.sale.CustomerFirstName;
+        string middleInitial = (Model.sale.CustomerMiddleInitial == null) ? "" : Model.sale.CustomerMiddleInitial;
+        string lastName = Model.sale.CustomerLastName;
+        string date = Model.sale.Date.ToString();
+        int orderID = Model.sale.Id;
+        string address = String.Format("{0} {1} {2} {3}", Model.sale.Address, Model.sale.City, Model.sale.State, Model.sale.Zipcode.ToString());
+
+        <ul>
+            <li>Name: @firstname @middleInitial @lastName</li>
+            <li>Address: @address</li>
+            <li>Date: @date</li>
+            <li>OrderID: @orderID</li>
+        </ul>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+
+                @foreach (var m in Model.currentCart)
+                {
+                    decimal? totalPerItem = m.Qty * m.ProductPrice;
+                <tr>
+                    <td>@m.Product.ProductName</td>
+                    <td>@m.Qty</td>
+                    <td>@totalPerItem</td>
+                </tr>
+                }
+
+            </table>
+        </div>
+    }
+}
+

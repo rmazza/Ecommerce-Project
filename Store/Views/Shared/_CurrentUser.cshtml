@@ -11,7 +11,7 @@
 }
 
 <ul class="nav navbar-nav currentUser">
-    <li class="cU">Welcome, @username</li>
+    <li class="cU">@username</li>
     @if (username == "Guest")
     {
         <li>@Html.ActionLink("Login", "Login", "Account")</li>
@@ -19,5 +19,6 @@
     else
     {
         <li>@Html.ActionLink("Logout","Logout","Account")</li>
+        <li>@Html.ActionLink("Cart","Index","Carts")</li>
     }
 </ul>

@@ -10,8 +10,8 @@ namespace Store.Models
     public class CheckoutModel
     {
         public string username { get; set; }
-        public string userID { get; set; }
-        public string cartID { get; set; }
+        public int userID { get; set; }
+        public int cartID { get; set; }
 
         [DisplayName("First Name:")]
         [Required(ErrorMessage = "First Name is required")]

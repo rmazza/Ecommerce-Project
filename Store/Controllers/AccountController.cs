@@ -20,12 +20,14 @@ namespace Store.Controllers
         }
 
         // GET: Login
+        [HttpGet]
         public ActionResult Login()
         {
             if (!WebSecurity.Initialized)
             {
                 WebSecurity.InitializeDatabaseConnection("StoreServer", "Users", "Id", "UserName", autoCreateTables: true);
             }
+
             return View();
         }
 
@@ -72,14 +74,14 @@ namespace Store.Controllers
 
                     string token = WebSecurity.CreateUserAndAccount(model.username, model.password,
                         new {
-                            Email = model.email,
-                            FirstName = model.firstName,
-                            MiddleInitial = model.middleInitial,
-                            LastName = model.lastName,
-                            StreetName = model.streetName,
-                            City = model.city,
-                            State = model.state,
-                            Zipcode = model.zipcode
+                            Email = model.email
+                            //FirstName = model.firstName,
+                            //MiddleInitial = model.middleInitial,
+                            //LastName = model.lastName,
+                            //StreetName = model.streetName,
+                            //City = model.city,
+                            //State = model.state,
+                            //Zipcode = model.zipcode
                         }, true);
 
 

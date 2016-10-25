@@ -76,10 +76,7 @@ namespace Store.Controllers
         [HttpPost]
         public ActionResult SingleProduct(ProductModel model, int? quantity)
         {
-
-            //To Do: Add product to cart in database
             return View(model);
-
         }
             
         }

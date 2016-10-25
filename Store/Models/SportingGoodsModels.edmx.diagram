@@ -14,6 +14,10 @@
         <EntityTypeShape EntityType="CodingTempleECommerceModel.Cart" Width="1.5" PointX="5.5" PointY="5.375" />
         <AssociationConnector Association="CodingTempleECommerceModel.fk_ProductCart" />
         <AssociationConnector Association="CodingTempleECommerceModel.fk_UserCart" />
+        <EntityTypeShape EntityType="CodingTempleECommerceModel.SalesOrderHeader" Width="1.5" PointX="12.25" PointY="8.75" />
+        <AssociationConnector Association="CodingTempleECommerceModel.fk_UserSalesOrderHeader" />
+        <EntityTypeShape EntityType="CodingTempleECommerceModel.SalesOrder" Width="1.5" PointX="12.25" PointY="3.25" />
+        <AssociationConnector Association="CodingTempleECommerceModel.fk_UserSalesOrder" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

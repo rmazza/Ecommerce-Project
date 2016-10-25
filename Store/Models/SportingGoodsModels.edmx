@@ -15,7 +15,7 @@
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="ProductPrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ProductPrice" Type="money" />
         </EntityType>
         <EntityType Name="CustomerAddress">
           <Key>
@@ -50,6 +50,38 @@
           <Property Name="InStock" Type="bit" />
           <Property Name="Sport" Type="nvarchar" MaxLength="50" />
           <Property Name="ProductBrand" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="SalesOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerFirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CustomerMiddleInitial" Type="nvarchar" MaxLength="2" />
+          <Property Name="CustomerLastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SessionKey" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Zipcode" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="SubTotal" Type="money" Nullable="false" />
+          <Property Name="Taxes" Type="money" Nullable="false" />
+          <Property Name="Total" Type="money" Nullable="false" />
+          <Property Name="Date" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="SalesOrderHeader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="SessionKey" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SubTotal" Type="money" Nullable="false" />
+          <Property Name="TotalTaxes" Type="money" Nullable="false" />
+          <Property Name="Total" Type="money" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SalesOrderID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -108,6 +140,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_UserSalesOrder">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SalesOrder" Type="Self.SalesOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesOrder">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserSalesOrderHeader">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SalesOrderHeader" Type="Self.SalesOrderHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesOrderHeader">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_UsersCustomerAddress">
           <End Role="Users" Type="Self.Users" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -131,6 +191,8 @@
           <EntitySet Name="CustomerAddress" EntityType="Self.CustomerAddress" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalesOrder" EntityType="Self.SalesOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalesOrderHeader" EntityType="Self.SalesOrderHeader" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="fk_ImageProduct" Association="Self.fk_ImageProduct">
             <End Role="Products" EntitySet="Products" />
@@ -143,6 +205,14 @@
           <AssociationSet Name="fk_UserCart" Association="Self.fk_UserCart">
             <End Role="Users" EntitySet="Users" />
             <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserSalesOrder" Association="Self.fk_UserSalesOrder">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SalesOrder" EntitySet="SalesOrder" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserSalesOrderHeader" Association="Self.fk_UserSalesOrderHeader">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="SalesOrderHeader" EntitySet="SalesOrderHeader" />
           </AssociationSet>
           <AssociationSet Name="fk_UsersCustomerAddress" Association="Self.fk_UsersCustomerAddress">
             <End Role="Users" EntitySet="Users" />
@@ -231,6 +301,16 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Cart" EntitySet="Carts" />
           </AssociationSet>
+          <EntitySet Name="SalesOrderHeaders" EntityType="CodingTempleECommerceModel.SalesOrderHeader" />
+          <AssociationSet Name="fk_UserSalesOrderHeader" Association="CodingTempleECommerceModel.fk_UserSalesOrderHeader">
+            <End Role="User" EntitySet="Users" />
+            <End Role="SalesOrderHeader" EntitySet="SalesOrderHeaders" />
+          </AssociationSet>
+          <EntitySet Name="SalesOrders" EntityType="CodingTempleECommerceModel.SalesOrder" />
+          <AssociationSet Name="fk_UserSalesOrder" Association="CodingTempleECommerceModel.fk_UserSalesOrder">
+            <End Role="User" EntitySet="Users" />
+            <End Role="SalesOrder" EntitySet="SalesOrders" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_GetAllProducts_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -265,6 +345,8 @@
           <Property Name="Zipcode" Type="Int32" />
           <NavigationProperty Name="CustomerAddresses" Relationship="CodingTempleECommerceModel.fk_UsersCustomerAddress" FromRole="User" ToRole="CustomerAddress" />
           <NavigationProperty Name="Carts" Relationship="CodingTempleECommerceModel.fk_UserCart" FromRole="User" ToRole="Cart" />
+          <NavigationProperty Name="SalesOrderHeaders" Relationship="CodingTempleECommerceModel.fk_UserSalesOrderHeader" FromRole="User" ToRole="SalesOrderHeader" />
+          <NavigationProperty Name="SalesOrders" Relationship="CodingTempleECommerceModel.fk_UserSalesOrder" FromRole="User" ToRole="SalesOrder" />
         </EntityType>
         <Association Name="fk_UsersCustomerAddress">
           <End Type="CodingTempleECommerceModel.User" Role="User" Multiplicity="1">
@@ -292,7 +374,7 @@
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="Product" Relationship="CodingTempleECommerceModel.fk_ProductCart" FromRole="Cart" ToRole="Product" />
           <NavigationProperty Name="User" Relationship="CodingTempleECommerceModel.fk_UserCart" FromRole="Cart" ToRole="User" />
-          <Property Name="ProductPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ProductPrice" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <Association Name="fk_ProductCart">
           <End Type="CodingTempleECommerceModel.Product" Role="Product" Multiplicity="1">
@@ -318,6 +400,68 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Cart">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SalesOrderHeader">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="SessionKey" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SubTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="TotalTaxes" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SalesOrderID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="CodingTempleECommerceModel.fk_UserSalesOrderHeader" FromRole="SalesOrderHeader" ToRole="User" />
+        </EntityType>
+        <Association Name="fk_UserSalesOrderHeader">
+          <End Type="CodingTempleECommerceModel.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingTempleECommerceModel.SalesOrderHeader" Role="SalesOrderHeader" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesOrderHeader">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SalesOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerFirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerMiddleInitial" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerLastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SessionKey" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Zipcode" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="SubTotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Taxes" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Total" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="User" Relationship="CodingTempleECommerceModel.fk_UserSalesOrder" FromRole="SalesOrder" ToRole="User" />
+          <Property Name="Date" Type="DateTime" Precision="7" />
+        </EntityType>
+        <Association Name="fk_UserSalesOrder">
+          <End Type="CodingTempleECommerceModel.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CodingTempleECommerceModel.SalesOrder" Role="SalesOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SalesOrder">
               <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
@@ -415,6 +559,40 @@
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Qty" ColumnName="Qty" />
                 <ScalarProperty Name="SessionKey" ColumnName="SessionKey" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalesOrderHeaders">
+            <EntityTypeMapping TypeName="CodingTempleECommerceModel.SalesOrderHeader">
+              <MappingFragment StoreEntitySet="SalesOrderHeader">
+                <ScalarProperty Name="SalesOrderID" ColumnName="SalesOrderID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="TotalTaxes" ColumnName="TotalTaxes" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="SessionKey" ColumnName="SessionKey" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalesOrders">
+            <EntityTypeMapping TypeName="CodingTempleECommerceModel.SalesOrder">
+              <MappingFragment StoreEntitySet="SalesOrder">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Taxes" ColumnName="Taxes" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Zipcode" ColumnName="Zipcode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="SessionKey" ColumnName="SessionKey" />
+                <ScalarProperty Name="CustomerLastName" ColumnName="CustomerLastName" />
+                <ScalarProperty Name="CustomerMiddleInitial" ColumnName="CustomerMiddleInitial" />
+                <ScalarProperty Name="CustomerFirstName" ColumnName="CustomerFirstName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

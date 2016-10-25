@@ -23,6 +23,7 @@ namespace UnitTestProject1
             CheckoutController controller = new CheckoutController();
             var result = controller.VerifyAddress("1 millstone circle", "Andover", "Ma", 01810).Result;
             Assert.IsNotNull(result);
+            
         }
 
         [TestMethod]
@@ -33,13 +34,16 @@ namespace UnitTestProject1
             CheckoutModel model =
                 new CheckoutModel
                 {
+                    firstName = "Robert",
+                    middleInitial = "A",
+                    lastName = "Mazza",
                     streetName = "8 Lavender Hill Ln",
                     city = "Andover",
                     state = "Ma",
                     zipcode = 01810
                 };
 
-            //var result =  controller.Checkout(model) as System.Web.Mvc.ViewResult;
+            var result = controller.Checkout(model);
 
         }
 

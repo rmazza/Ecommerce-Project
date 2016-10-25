@@ -32,6 +32,8 @@ namespace Store.Models
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
+        public virtual DbSet<SalesOrderHeader> SalesOrderHeaders { get; set; }
+        public virtual DbSet<SalesOrder> SalesOrders { get; set; }
     
         public virtual ObjectResult<sp_GetAllProducts_Result> sp_GetAllProducts()
         {
