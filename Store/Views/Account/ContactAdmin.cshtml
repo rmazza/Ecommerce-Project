@@ -1,0 +1,41 @@
+﻿@model Store.Models.ContactModel
+
+<div class="test">
+    @using (Html.BeginForm("ContactAdmin", "Account", FormMethod.Post, new { @class = "contactForm" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "bg-danger" })
+        <fieldset>
+            <legend>Contact</legend>
+            <div class="row">
+                <div class="form-group">
+                    <div>
+                        @Html.TextBoxFor(x => x.firstName, new { @class = "form-control contactInput", @placeholder = "First Name" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div>
+                        @Html.TextBoxFor(x => x.lastName, new { @class = "form-control contactInput", @placeholder = "Last Name" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="messageInput">
+                        @Html.TextAreaFor(x => x.message, new { @class = "form-control contactInput", @placeholder = "Message" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="loginContact">
+                    <div>
+                        <input type="submit" value="Send Message" />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    }
+</div>
+

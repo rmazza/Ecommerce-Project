@@ -34,6 +34,7 @@ namespace Store.Controllers
                     })
                 }).ToList();
             }
+            ViewBag.SearchTitle = "All Products";
             return View(model);
         }
 
@@ -68,6 +69,7 @@ namespace Store.Controllers
             {
                 RedirectToAction("Products");
             }
+            ViewBag.SearchTitle = id;
             return View(model);
         }
 

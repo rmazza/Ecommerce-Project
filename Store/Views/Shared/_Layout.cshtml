@@ -24,7 +24,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Products", "Products", "Product")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "ContactAdmin", "Account")</li>
                 </ul>
                 @Html.Partial("_CurrentUser")
             </div>
@@ -34,6 +34,7 @@
         <div class="col-xs-3">
             <ul class="sideMenu">
                 <li><h2>Sports</h2></li>
+                <li class="hvr-forward"><a href="/Product/Products">All Products</a></li>
                 <li class="hvr-forward"><a href="/Product/Search/Hockey">Hockey</a></li>
                 <li class="hvr-forward"><a href="/Product/Search/Baseball">Baseball</a></li>
                 <li class="hvr-forward"><a href="/Product/Search/Basketball">Basketball</a></li>

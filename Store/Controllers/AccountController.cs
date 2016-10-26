@@ -12,6 +12,7 @@ namespace Store.Controllers
 {
     public class AccountController : Controller
     {
+        private string passResetToken { get; set; }
 
         // GET: Index
         [HttpGet]
@@ -42,6 +43,11 @@ namespace Store.Controllers
             {
                 return RedirectToAction("Index");
             }
+            else
+            {
+                ModelState.AddModelError("", "Username or Password is incorrect");
+            }
+
             return View();
         }
 
@@ -198,19 +204,75 @@ namespace Store.Controllers
             {
                 ModelState.AddModelError("", "User does not exist in the database");
             }
+            return RedirectToAction("ResetComplete");
+        }
+
+        [HttpGet]
+        public ActionResult ResetComplete()
+        {
             return View();
         }
 
         [HttpGet]
-        public ActionResult ResetPassword()
+        public ActionResult ResetPassword(string id, string userName)
         {
             return View();
         }
 
-        [AllowAnonymous]
-        public ActionResult ResetPasword()
+        [HttpPost]
+        public ActionResult ResetPassword(string id, string newPass,string confirmPass)
         {
+            if(newPass != confirmPass)
+            {
+                ModelState.AddModelError("", "Passwords do not match");
+            }else
+            {
+                bool result = WebSecurity.ResetPassword(id, newPass);
 
+                if (result)
+                {
+                    return RedirectToAction("Login");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Password reset failed, please try again");
+                }
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ContactAdmin()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ContactAdmin(ContactModel model)
+        {
+            using (CodingTempleECommerceEntities db = new CodingTempleECommerceEntities())
+            {
+                string email = db.Users.Single(x => x.Username == "admin").Email;
+
+                string apiKey = ConfigurationManager.AppSettings["SendGrid.Key"];
+                SendGrid.SendGridAPIClient sg = new SendGrid.SendGridAPIClient(apiKey);
+
+                Email from = new Email("Contact@bob.com");
+                string subject = String.Format("New customer message from {0}",model.firstName);
+                Email to = new Email(email);
+                string emailContent = String.Format("<html><body>{0}</body></html>",model.message);
+                Content content = new Content("text/html", emailContent);
+                Mail mail = new Mail(from, subject, to, content);
+
+                sg.client.mail.send.post(requestBody: mail.Get());
+                return RedirectToAction("ContactComplete");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ContactComplete()
+        {
+            return View();
         }
     }
 }

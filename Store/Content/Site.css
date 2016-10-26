@@ -21,11 +21,10 @@ body {
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
+/*select,
 textarea {
     max-width: 280px;
-}
+}*/
 
 .left {
     background-color:black;
@@ -155,8 +154,8 @@ li.cU {
 }
 
 div#carousel-example-generic {
-    width: 80%;
-    margin: 25px auto;
+    width: 90%;
+    margin: 25px 0 0 9px;
 }
 
 .navbar-inverse {
@@ -210,6 +209,7 @@ ul.sideMenu a {
 .hvr-forward:hover, .hvr-forward:focus, .hvr-forward:active {
   -webkit-transform: translateX(8px);
   transform: translateX(8px);
+  border-bottom: 1px solid #070b7f;
 }
 
 .regComplete {
@@ -218,3 +218,25 @@ ul.sideMenu a {
 .bg-info {
     font-size: 18px;
 }
+img.frontPageAdd {
+    width: 90%;
+    margin: 26px 0 0 9px;
+}
+form.contactForm {
+    margin: 0 auto;
+    width: 50%;
+}
+form.contactInput {
+    max-width: 300px;
+}
+.loginContact input[type="submit"] {
+    margin-top: 10px;
+    width: 30%;
+    margin: 0 auto;
+    height: 30px;
+}
+input.checkoutIndex {
+    width: 300px;
+}
+
+

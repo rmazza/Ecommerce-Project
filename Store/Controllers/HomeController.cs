@@ -18,7 +18,7 @@ namespace Store.Controllers
         {
             if (!WebSecurity.Initialized)
             {
-                WebSecurity.InitializeDatabaseConnection("StoreServer", "Users", "Id", "UserName", autoCreateTables: true);
+                WebSecurity.InitializeDatabaseConnection("StoreServer", "Users", "Id", "UserName", autoCreateTables: false);
             }
          
             using (CodingTempleECommerceEntities db = new CodingTempleECommerceEntities())

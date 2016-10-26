@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<Store.Models.Cart>
 
+@{
+    decimal? subTotal = 0;
+}
 <h2>Shopping Cart</h2>
 
 @if (Model == null)
@@ -36,6 +39,7 @@ else
                 decimal? prodPrice = item.ProductPrice;
                 decimal q = item.Qty;
                 decimal? total = prodPrice * q;
+                subTotal += total;
             }
             <span>@total.Value.ToString("c")</span>
         </td>
@@ -44,8 +48,12 @@ else
             @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
-                }
-
+}
+    <tr>
+        <td></td>
+        <td>SubTotal</td>
+        <td>@subTotal.Value.ToString("c")</td>
+    </tr>
 </table>
 
 <a href="/Checkout/Index">

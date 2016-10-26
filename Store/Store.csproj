@@ -239,6 +239,7 @@
     </Compile>
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\CheckoutModel.cs" />
+    <Compile Include="Models\ContactModel.cs" />
     <Compile Include="Models\CustomerAddress.cs">
       <DependentUpon>SportingGoodsModels.tt</DependentUpon>
     </Compile>
@@ -255,6 +256,7 @@
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\RecieptModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\ResetModel.cs" />
     <Compile Include="Models\SalesOrder.cs">
       <DependentUpon>SportingGoodsModels.tt</DependentUpon>
     </Compile>
@@ -403,6 +405,9 @@
     <Content Include="Views\Product\Search.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetComplete.cshtml" />
+    <Content Include="Views\Account\ContactAdmin.cshtml" />
+    <Content Include="Views\Account\ContactComplete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

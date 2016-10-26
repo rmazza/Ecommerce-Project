@@ -154,7 +154,7 @@ namespace Store.Controllers
             }
            
 
-            return View();
+            return RedirectToAction("Index");
         }
         
 
